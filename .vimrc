@@ -14,33 +14,40 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundle 'Shougo/neobundle.vim'
 
 " ファイルオープンを便利に
+" <Ctrl+n>で現在のディレクトリ、+p>でバッファ、+z>で最近使用したファイル一覧
 NeoBundle 'Shougo/unite.vim'
 " Unite.vimで最近使ったファイルを表示できるようにする
 NeoBundle 'Shougo/neomru.vim'
 " ファイルをtree表示してくれる
+" :NerdTree
 NeoBundle 'scrooloose/nerdtree'
 " Gitを便利に使う
+" :Gstatus, Gdiff等
 NeoBundle 'tpope/vim-fugitive'
 
-" Rails向けのコマンドを提供する
-NeoBundle 'tpope/vim-rails'
-" Ruby向けにendを自動挿入してくれる
-NeoBundle 'tpope/vim-endwise'
-
 " コメントON/OFFを手軽に実行
+" 通常モードでgcc, もしくはヴィジュアルモードでgc
 NeoBundle 'tomtom/tcomment_vim'
 " シングルクオートとダブルクオートの入れ替え等
+" cs(変換前)(変換後)  ex. cs"' "→'に変換
 NeoBundle 'tpope/vim-surround'
 
+" HTML入力支援
+" <Ctrl+y>,でタグ展開
+NeoBundle 'mattn/emmet-vim'
 
 " NeoBundle 'Shougo/vimproc'
 " NeoBundle 'Shougo/vimshell'
 
+" Complete
+" Tabで選択、Enterで展開
+NeoBundle 'Shougo/neocomplete.vim'
 " Snippet
-" NeoBundle 'Shougo/neosnippet'
+" Tabで選択、Ctrl+Spaceで展開
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
 " File Syntax Checker
 " NeoBundle 'scrooloose/syntastic'
-
 
 call neobundle#end()
 
@@ -117,6 +124,41 @@ syntax on
 
 " vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
 let g:indent_guides_enable_on_vim_startup = 1
+
+""""""""""""""""""""""""""""""
+" NeoComplete.vimの設定
+""""""""""""""""""""""""""""""
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Ignore Case
+let g:neocomplete#enable_ignore_case = 1
+" Use Smartcase
+let g:neocomplete#enable_smart_case = 1
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns._ = '\h\w*'
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  " For no inserting <CR> key.
+  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+
+" Plugin key-mappings.
+imap <Nul> <Plug>(neosnippet_expand_or_jump)
+smap <Nul> <Plug>(neosnippet_expand_or_jump)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
 " http://blog.remora.cx/2010/12/vim-ref-with-unite.html
 """"""""""""""""""""""""""""""
