@@ -36,6 +36,12 @@ NeoBundle 'tpope/vim-surround'
 " <Ctrl+y>,でタグ展開
 NeoBundle 'mattn/emmet-vim'
 
+" 括弧を閉じてくれる
+NeoBundle 'Townk/vim-autoclose'
+
+" 爆速移動
+NeoBundle 'Lokaltog/vim-easymotion'
+
 " NeoBundle 'Shougo/vimproc'
 " NeoBundle 'Shougo/vimshell'
 
@@ -183,7 +189,26 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vspli
 " ESCキーを2回押すと終了する
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+
 """"""""""""""""""""""""""""""
+" Vim-EasyMotion.vimの設定
+""""""""""""""""""""""""""""""
+let g:EasyMotion_do_mapping = 0
+nmap s <Plug>(easymotion-s2)
+xmap s <Plug>(easymotion-s2)
+omap z <Plug>(easymotion-s2)
+nmap g/ <Plug>(easymotion-sn)
+xmap g/ <Plug>(easymotion-sn)
+omap g/ <Plug>(easymotion-tn)
+let g:EasyMotion_smartcase = 1
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+let g:EasyMotion_startofline = 0
+let g:EasyMotion_keys = 'QZASDFGHJKL;'
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_enter_jump_first = 1
+let g:EasyMotion_space_jump_first = 1
+hi EasyMotionTarget guifg=#80a0ff ctermfg=81
 
 " http://inari.hatenablog.com/entry/2014/05/05/231307
 """"""""""""""""""""""""""""""
@@ -253,8 +278,9 @@ endif
 """"""""""""""""""""""""""""""
 " 自動的に閉じ括弧を入力
 """""""""""""""""""""""""""""""
-imap { {}<LEFT>
-imap [ []<LEFT>
-imap ( ()<LEFT>
+" imap { {}<LEFT>
+" imap [ []<LEFT>
+" imap ( ()<LEFT>
 """""""""""""""""""""""""""""""
+
 
