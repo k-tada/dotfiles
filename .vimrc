@@ -40,7 +40,11 @@ NeoBundle 'mattn/emmet-vim'
 NeoBundle 'Townk/vim-autoclose'
 
 " 爆速移動
+" sかg/で移動スタート
 NeoBundle 'Lokaltog/vim-easymotion'
+
+" true/false トグル
+NeoBundle 'AndrewRadev/switch.vim'
 
 " NeoBundle 'Shougo/vimproc'
 " NeoBundle 'Shougo/vimshell'
@@ -209,6 +213,12 @@ let g:EasyMotion_use_upper = 1
 let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_space_jump_first = 1
 hi EasyMotionTarget guifg=#80a0ff ctermfg=81
+
+""""""""""""""""""""""""""""""
+" switch.vimの設定
+""""""""""""""""""""""""""""""
+nmap + :Switch<CR>
+nmap - :Switch<CR>
 
 " http://inari.hatenablog.com/entry/2014/05/05/231307
 """"""""""""""""""""""""""""""
