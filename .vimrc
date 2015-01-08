@@ -5,13 +5,21 @@ set nocompatible
 filetype off
 
 if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim
+  if has('win32') || has('win64')
+    set runtimepath+=~/vimfiles/bundle/neobundle.vim
+  else
+    set runtimepath+=~/.vim/bundle/neobundle.vim
+  endif
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+if has('win32') || has('win64')
+  call neobundle#begin(expand('~/vimfiles/bundle/'))
+else
+  call neobundle#begin(expand('~/.vim/bundle/'))
+endif
 
 " originalrepos on github
-NeoBundle 'Shougo/neobundle.vim'
+NeoBundleFetch "Shougo/neobundle.vim"
 
 " ファイルオープンを便利に
 " <Ctrl+n>で現在のディレクトリ、+p>でバッファ、+z>で最近使用したファイル一覧
@@ -61,6 +69,7 @@ NeoBundle 'Shougo/neosnippet-snippets'
 
 call neobundle#end()
 
+filetype on
 filetype plugin on
 filetype indent on
 syntax on
@@ -84,10 +93,13 @@ set ruler
 set cmdheight=2
 " エディタウィンドウの末尾から2行目にステータスラインを常時表示させる
 set laststatus=2
-" ステータス行に表示させる情報の指定
-set statusline=%<%f\%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
-" ステータス行に現在のgitブランチを表示する
-set statusline+=%{fugitive#statusline()}
+if has('win32') || has('win64')
+else
+  " ステータス行に表示させる情報の指定
+  set statusline=%<%f\%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+  " ステータス行に現在のgitブランチを表示する
+  set statusline+=%{fugitive#statusline()}
+endif
 " ウインドウのタイトルバーにファイルのパス情報等を表示する
 set title
 " コマンドラインモードで<Tab>キーによるファイル名補完を有効にする
@@ -292,5 +304,4 @@ endif
 " imap [ []<LEFT>
 " imap ( ()<LEFT>
 """""""""""""""""""""""""""""""
-
 
