@@ -1,86 +1,99 @@
-"------
-" NeoBundle plugin
-"------
+"---------------------------------------------------------------------------
+" NeoBundle {{{2
+if has('unix')
+  let $DOTVIM=expand('~/.vim')
+else
+  let $DOTVIM=expand('~/vimfiles')
+endif
+
+let $VIMBUNDLE=$DOTVIM.'/bundle'
+let $NEOBUNDLEPATH=$VIMBUNDLE.'/neobundle.vim'
+
+function! s:bundled(bundle)
+  if !isdirectory($VIMBUNDLE)
+    return 0
+  endif
+  if stridx(&runtimepath, $NEOBUNDLEPATH) == -1
+    return 0
+  endif
+
+  if a:bundle ==# 'neobundle.vim'
+    return 1
+  else
+    return neobundle#is_installed(a:bundle)
+  endif
+endfunction
+
 set nocompatible
 filetype off
 
-if has('vim_starting')
-  if has('win32') || has('win64')
-    set runtimepath+=~/vimfiles/bundle/neobundle.vim
-  else
-    set runtimepath+=~/.vim/bundle/neobundle.vim
-  endif
+if has('vim_starting') && isdirectory($NEOBUNDLEPATH)
+  set runtimepath+=$NEOBUNDLEPATH
 endif
 
-if has('win32') || has('win64')
-  call neobundle#begin(expand('~/vimfiles/bundle/'))
-else
-  call neobundle#begin(expand('~/.vim/bundle/'))
+if s:bundled('neobundle.vim')
+  call neobundle#begin(expand($VIMBUNDLE))
+
+  " originalrepos on github
+  NeoBundleFetch "Shougo/neobundle.vim"
+
+  " ファイルオープンを便利に
+  " <Ctrl+n>で現在のディレクトリ、+p>でバッファ、+z>で最近使用したファイル一覧
+  NeoBundle 'Shougo/unite.vim'
+  " Unite.vimで最近使ったファイルを表示できるようにする
+  NeoBundle 'Shougo/neomru.vim'
+  " ファイルをtree表示してくれる
+  " :NerdTree
+  NeoBundle 'scrooloose/nerdtree'
+  " Gitを便利に使う
+  " :Gstatus, Gdiff等
+  NeoBundle 'tpope/vim-fugitive'
+
+  " コメントON/OFFを手軽に実行
+  " 通常モードでgcc, もしくはヴィジュアルモードでgc
+  NeoBundle 'tomtom/tcomment_vim'
+  " シングルクオートとダブルクオートの入れ替え等
+  " cs(変換前)(変換後)  ex. cs"' "→'に変換
+  NeoBundle 'tpope/vim-surround'
+
+  " HTML入力支援
+  " <Ctrl+y>,でタグ展開
+  NeoBundle 'mattn/emmet-vim'
+
+  " 括弧を閉じてくれる
+  NeoBundle 'Townk/vim-autoclose'
+
+  " 爆速移動
+  " sかg/で移動スタート
+  NeoBundle 'Lokaltog/vim-easymotion'
+
+  " true/false トグル
+  NeoBundle 'AndrewRadev/switch.vim'
+
+  NeoBundle 'itchyny/lightline.vim'
+
+  " NeoBundle 'Shougo/vimproc'
+  " NeoBundle 'Shougo/vimshell'
+
+  " Complete
+  " Tabで選択、Enterで展開
+  NeoBundle 'Shougo/neocomplete.vim'
+  " Snippet
+  " Tabで選択、Ctrl+Spaceで展開
+  NeoBundle 'Shougo/neosnippet.vim'
+  NeoBundle 'Shougo/neosnippet-snippets'
+  " File Syntax Checker
+  " NeoBundle 'scrooloose/syntastic'
+
+  " If there are uninstalled bundles found on startup,
+  " this will conveniently prompt you to install them.
+  NeoBundleCheck
+
+  call neobundle#end()
 endif
+" }}}
 
-" originalrepos on github
-NeoBundleFetch "Shougo/neobundle.vim"
-
-" ファイルオープンを便利に
-" <Ctrl+n>で現在のディレクトリ、+p>でバッファ、+z>で最近使用したファイル一覧
-NeoBundle 'Shougo/unite.vim'
-" Unite.vimで最近使ったファイルを表示できるようにする
-NeoBundle 'Shougo/neomru.vim'
-" ファイルをtree表示してくれる
-" :NerdTree
-NeoBundle 'scrooloose/nerdtree'
-" Gitを便利に使う
-" :Gstatus, Gdiff等
-NeoBundle 'tpope/vim-fugitive'
-
-" コメントON/OFFを手軽に実行
-" 通常モードでgcc, もしくはヴィジュアルモードでgc
-NeoBundle 'tomtom/tcomment_vim'
-" シングルクオートとダブルクオートの入れ替え等
-" cs(変換前)(変換後)  ex. cs"' "→'に変換
-NeoBundle 'tpope/vim-surround'
-
-" HTML入力支援
-" <Ctrl+y>,でタグ展開
-NeoBundle 'mattn/emmet-vim'
-
-" 括弧を閉じてくれる
-NeoBundle 'Townk/vim-autoclose'
-
-" 爆速移動
-" sかg/で移動スタート
-NeoBundle 'Lokaltog/vim-easymotion'
-
-" true/false トグル
-NeoBundle 'AndrewRadev/switch.vim'
-
-" NeoBundle 'Shougo/vimproc'
-" NeoBundle 'Shougo/vimshell'
-
-" Complete
-" Tabで選択、Enterで展開
-NeoBundle 'Shougo/neocomplete.vim'
-" Snippet
-" Tabで選択、Ctrl+Spaceで展開
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-" File Syntax Checker
-" NeoBundle 'scrooloose/syntastic'
-
-call neobundle#end()
-
-filetype on
-filetype plugin on
-filetype indent on
-syntax on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-
-" Load all vim files
-" set runtimepath+=~/.vim/
-" runtime! userautoload/*.vim
+filetype plugin indent on
 
 """"""""""""""""""""""""""""""
 " 各種オプションの設定
@@ -231,6 +244,23 @@ hi EasyMotionTarget guifg=#80a0ff ctermfg=81
 """"""""""""""""""""""""""""""
 nmap + :Switch<CR>
 nmap - :Switch<CR>
+
+""""""""""""""""""""""""""""""
+" lightline.vimの設定
+""""""""""""""""""""""""""""""
+let g:lightline = {
+      \ 'colorscheme': 'landscape',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"⭤":""}',
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
+
+if !has('gui_running')
+  set t_Co=256
+endif
+set laststatus=2
 
 " http://inari.hatenablog.com/entry/2014/05/05/231307
 """"""""""""""""""""""""""""""
