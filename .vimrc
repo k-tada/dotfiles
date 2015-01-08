@@ -38,7 +38,7 @@ if s:bundled('neobundle.vim')
   NeoBundleFetch "Shougo/neobundle.vim"
 
   " ファイルオープンを便利に
-  " <Ctrl+n>で現在のディレクトリ、+p>でバッファ、+z>で最近使用したファイル一覧
+  " <Space>u*で起動。多分uuしか使わない
   NeoBundle 'Shougo/unite.vim'
   call neobundle#config('unite.vim',{
       \ 'lazy' : 1,
@@ -62,6 +62,15 @@ if s:bundled('neobundle.vim')
   NeoBundle 'tpope/vim-fugitive'
   " Git差分表示
   NeoBundle 'airblade/vim-gitgutter'
+
+  " 開いているファイルに関係するファイルを開いてくれる
+  NeoBundleLazy 'kana/vim-altr', {
+      \ 'autoload' : {
+      \   'functions' : [
+      \     'altr#forward',
+      \     'altr#back',
+      \   ]},
+      \ }
 
   " コメントON/OFFを手軽に実行
   " 通常モードでgcc, もしくはヴィジュアルモードでgc
@@ -353,4 +362,24 @@ endif
 " imap [ []<LEFT>
 " imap ( ()<LEFT>
 """""""""""""""""""""""""""""""
+
+"---------------------------------------------------------------------------
+" for kana/vim-altr {{{2
+if s:bundled('vim-altr')
+  call altr#remove_all()
+  call altr#define('plugin/%/*.vim', 'autoload/%/*.vim')
+  call altr#define('plugin/%.vim',   'autoload/%.vim')
+
+  " For ruby
+  call altr#define('%.rb', 'spec/%_spec.rb')
+
+  " For rails
+  call altr#define('app/models/%.rb', 'spec/models/%_spec.rb', 'spec/factories/%s.rb')
+  call altr#define('app/controllers/%.rb', 'spec/controllers/%_spec.rb')
+  call altr#define('app/helpers/%.rb', 'spec/helpers/%_spec.rb')
+
+  command! Af call altr#forward()
+  command! Ab call altr#back()
+endif
+" }}}
 
