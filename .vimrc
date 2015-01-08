@@ -40,6 +40,18 @@ if s:bundled('neobundle.vim')
   " ファイルオープンを便利に
   " <Ctrl+n>で現在のディレクトリ、+p>でバッファ、+z>で最近使用したファイル一覧
   NeoBundle 'Shougo/unite.vim'
+  call neobundle#config('unite.vim',{
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'commands' : [
+      \     {
+      \       'name' : 'Unite',
+      \       'complete' : 'customlist,unite#complete_source'
+      \     },
+      \     'UniteWithCursorWord',
+      \     'UniteWithInput'
+      \   ]
+      \ }})
   " Unite.vimで最近使ったファイルを表示できるようにする
   NeoBundle 'Shougo/neomru.vim'
   " ファイルをtree表示してくれる
@@ -197,29 +209,34 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-" http://blog.remora.cx/2010/12/vim-ref-with-unite.html
-""""""""""""""""""""""""""""""
-" Unit.vimの設定
-""""""""""""""""""""""""""""""
-" 入力モードで開始する
-let g:unite_enable_start_insert=1
-" バッファ一覧
-noremap <C-P> :Unite buffer<CR>
-" ファイル一覧
-noremap <C-N> :Unite -buffer-name=file file<CR>
-" 最近使ったファイルの一覧
-noremap <C-Z> :Unite file_mru<CR>
-" sourcesを「今開いているファイルのディレクトリ」とする
-noremap :uff :<C-u>UniteWithBufferDir file -buffer-name=file<CR>
-" ウィンドウを分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-" ウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+"---------------------------------------------------------------------------
+"" for Shougo/unite.vim {{{2
+if s:bundled('unite.vim')
+  nnoremap [unite]    <Nop>
+  nmap     <Space>u [unite]
+
+  nnoremap <silent> [unite]c   :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+  nnoremap <silent> [unite]b   :<C-u>Unite buffer<CR>
+  nnoremap <silent> [unite]r   :<C-u>Unite register<CR>
+  nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
+  nnoremap <silent> [unite]u   :<C-u>Unite file_mru<CR>
+  nnoremap <silent> [unite]d   :<C-u>Unite directory_mru<CR>
+  nnoremap <silent> [unite]k   :<C-u>Unite bookmark<CR>
+  nnoremap <silent> [unite]s   :<C-u>Unite source<CR>
+  nnoremap <silent> [unite]f   :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+  nnoremap <silent> [unite]g   :<C-u>Unite grep<CR>
+  nnoremap <silent> [unite]h   :<C-u>Unite help<CR>
+  nnoremap <silent> [unite];   :<C-u>Unite history/command<CR>
+  nnoremap <silent> [unite]/   :<C-u>Unite history/search<CR>
+  nnoremap <silent> [unite]y   :<C-u>Unite history/yank<CR>
+  nnoremap <silent> [unite]a   :<C-u>UniteBookmarkAdd<CR>
+  nnoremap <silent> [unite]n   :<C-u>Unite neobundle/install:!<CR>
+  nnoremap <silent> [unite]e   :<C-u>Unite snippet<CR>
+  nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
+  nnoremap <silent> [unite]p   :<C-u>Unite ref/perldoc<CR>
+
+endif
+" }}}
 
 """"""""""""""""""""""""""""""
 " Vim-EasyMotion.vimの設定
