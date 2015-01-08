@@ -48,6 +48,8 @@ if s:bundled('neobundle.vim')
   " Gitを便利に使う
   " :Gstatus, Gdiff等
   NeoBundle 'tpope/vim-fugitive'
+  " Git差分表示
+  NeoBundle 'airblade/vim-gitgutter'
 
   " コメントON/OFFを手軽に実行
   " 通常モードでgcc, もしくはヴィジュアルモードでgc
