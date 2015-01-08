@@ -63,7 +63,12 @@ if s:bundled('neobundle.vim')
   " Git差分表示
   NeoBundle 'airblade/vim-gitgutter'
 
+  " テキストオブジェクトで置換
+  NeoBundle 'kana/vim-operator-replace.git'
+  NeoBundle 'kana/vim-operator-user.git'
+
   " 開いているファイルに関係するファイルを開いてくれる
+  " :Afでフォワード、:Abでバック
   NeoBundleLazy 'kana/vim-altr', {
       \ 'autoload' : {
       \   'functions' : [
@@ -129,13 +134,6 @@ set ruler
 set cmdheight=2
 " エディタウィンドウの末尾から2行目にステータスラインを常時表示させる
 set laststatus=2
-if has('win32') || has('win64')
-else
-  " ステータス行に表示させる情報の指定
-  set statusline=%<%f\%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
-  " ステータス行に現在のgitブランチを表示する
-  set statusline+=%{fugitive#statusline()}
-endif
 " ウインドウのタイトルバーにファイルのパス情報等を表示する
 set title
 " コマンドラインモードで<Tab>キーによるファイル名補完を有効にする
@@ -362,6 +360,13 @@ endif
 " imap [ []<LEFT>
 " imap ( ()<LEFT>
 """""""""""""""""""""""""""""""
+
+"---------------------------------------------------------------------------
+" for kana/vim-operator-replace {{{2
+if s:bundled('vim-operator-user') && s:bundled('vim-operator-replace')
+  map R  <Plug>(operator-replace)
+endif
+" }}}
 
 "---------------------------------------------------------------------------
 " for kana/vim-altr {{{2
