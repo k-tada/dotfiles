@@ -113,6 +113,15 @@ if s:bundled('neobundle.vim')
   " File Syntax Checker
   " NeoBundle 'scrooloose/syntastic'
 
+  " Gistクライアント
+  " :Gistaで起動
+  NeoBundle 'lambdalisue/vim-gista'
+
+  """ For Ruby {{{
+  " Ruby endを自動挿入
+  NeoBundle 'tpope/vim-endwise'
+  " }}}
+
   " If there are uninstalled bundles found on startup,
   " this will conveniently prompt you to install them.
   NeoBundleCheck
@@ -126,8 +135,6 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""
 " 各種オプションの設定
 """""""""""""""""""""""""""""""
-" スワップファイルは使わない
-set noswapfile
 " カーソルが何行目の何列目に置かれているかを表示する
 set ruler
 " コマンドラインに使われる画面上の行数
@@ -175,6 +182,20 @@ set smarttab
 " カーソルを行頭、行末で止まらないようにする
 set whichwrap=b,s,h,l,<,>,[,]
 set clipboard+=unnamed
+" スワップファイルは使わない
+set noswapfile
+" Undoファイルの保存先変更
+if has('unix')
+  set undodir=/tmp/vim/undo
+else
+  set undodir=c:/vim/undo
+end
+" バックアップファイルの保存先変更
+if has('unix')
+  set backupdir=/tmp/vim/backup
+else
+  set backupdir=c:/vim/backup
+end
 " 構文毎に文字色を変化させる
 syntax on
 """"""""""""""""""""""""""""""
@@ -395,3 +416,9 @@ if s:bundled('vim-altr')
 endif
 " }}}
 
+"---------------------------------------------------------------------------
+" for lambdalisue/vim-gista {{{2
+if s:bundled('vim-gista')
+  let g:gista#github_user="k-tada"
+endif
+" }}}
