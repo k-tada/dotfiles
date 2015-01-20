@@ -122,6 +122,21 @@ if s:bundled('neobundle.vim')
   NeoBundle 'tpope/vim-endwise'
   " }}}
 
+  " *検索拡張
+  " z*で従来通り（カーソル動かさない）
+  " g*でVisualモード選択箇所検索
+  NeoBundle 'haya14busa/vim-asterisk'
+
+  " /検索拡張
+  " インクリメンタルサーチ
+  NeoBundle 'haya14busa/incsearch.vim'
+
+  " w, b, eなどの移動をスマートに
+  NeoBundle 'kana/vim-smartword'
+  
+  " サブモード設定可能に
+  NeoBundle 'kana/vim-submode'
+
   " If there are uninstalled bundles found on startup,
   " this will conveniently prompt you to install them.
   NeoBundleCheck
@@ -422,3 +437,32 @@ if s:bundled('vim-gista')
   let g:gista#github_user="k-tada"
 endif
 " }}}
+
+"---------------------------------------------------------------------------
+" for haya14busa/incsearch.vim {{{2
+if s:bundled('incsearch.vim')
+  map /  <Plug>(incsearch-forward)
+  map ?  <Plug>(incsearch-backward)
+  map g/ <Plug>(incsearch-stay)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for kana/vim-smartword {{{2
+if s:bundled('vim-smartword')
+  nmap w  <Plug>(smartword-w)
+  vmap w  <Plug>(smartword-w)
+  map  b  <Plug>(smartword-b)
+  map  e  <Plug>(smartword-e)
+  if s:bundled('vim-submode')
+    call submode#enter_with('ge-mode', 'nv', 'r', 'ge', '<Plug>(smartword-ge)')
+    call submode#map('ge-mode', 'nv', 'r', 'e', '<Plug>(smartword-ge)')
+  else
+    nmap ge <Plug>(smartword-ge)
+    vmap ge <Plug>(smartword-ge)
+  endif
+  omap ge <Plug>(smartword-ge)
+endif
+" }}}
+
+
