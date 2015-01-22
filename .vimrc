@@ -54,6 +54,9 @@ if s:bundled('neobundle.vim')
       \ }})
   " Unite.vimで最近使ったファイルを表示できるようにする
   NeoBundle 'Shougo/neomru.vim'
+
+  NeoBundle 'Shougo/vimproc'
+
   " ファイルをtree表示してくれる
   " :NerdTree
   NeoBundle 'scrooloose/nerdtree'
@@ -100,7 +103,6 @@ if s:bundled('neobundle.vim')
 
   NeoBundle 'itchyny/lightline.vim'
 
-  " NeoBundle 'Shougo/vimproc'
   " NeoBundle 'Shougo/vimshell'
 
   " Complete
@@ -137,6 +139,15 @@ if s:bundled('neobundle.vim')
   " サブモード設定可能に
   NeoBundle 'kana/vim-submode'
 
+  " SCPアップロード
+  " scp で実施
+  NeoBundle 'ryoppy/vim-scp-upload'
+
+  " メソッドリスト表示
+  " <Space>tlでトグル
+  NeoBundle 'vim-scripts/taglist.vim'
+  NeoBundle 'szw/vim-tags'
+
   " If there are uninstalled bundles found on startup,
   " this will conveniently prompt you to install them.
   NeoBundleCheck
@@ -150,6 +161,7 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""
 " 各種オプションの設定
 """""""""""""""""""""""""""""""
+highlight SpecialKey term=NONE cterm=NONE ctermfg=25 guifg=Blue
 " カーソルが何行目の何列目に置かれているかを表示する
 set ruler
 " コマンドラインに使われる画面上の行数
@@ -224,6 +236,8 @@ set fileformats=unix,dos,mac
 " vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
 let g:indent_guides_enable_on_vim_startup = 1
 
+autocmd QuickFixCmdPost *grep* cwindow
+
 """"""""""""""""""""""""""""""
 " NeoComplete.vimの設定
 """"""""""""""""""""""""""""""
@@ -262,6 +276,12 @@ endif
 "---------------------------------------------------------------------------
 "" for Shougo/unite.vim {{{2
 if s:bundled('unite.vim')
+  " insert modeで開始
+  let g:unite_enable_start_insert = 1
+
+  " 大文字小文字を区別しない
+  let g:unite_enable_ignore_case = 1 
+  let g:unite_enable_smart_case = 1 
   nnoremap [unite]    <Nop>
   nmap     <Space>u [unite]
 
@@ -275,6 +295,9 @@ if s:bundled('unite.vim')
   nnoremap <silent> [unite]s   :<C-u>Unite source<CR>
   nnoremap <silent> [unite]f   :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
   nnoremap <silent> [unite]g   :<C-u>Unite grep<CR>
+  nnoremap <silent> ,g         :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+  nnoremap <silent> ,cg        :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+  nnoremap <silent> ,r         :<C-u>UniteResume search-buffer<CR>
   nnoremap <silent> [unite]h   :<C-u>Unite help<CR>
   nnoremap <silent> [unite];   :<C-u>Unite history/command<CR>
   nnoremap <silent> [unite]/   :<C-u>Unite history/search<CR>
@@ -284,6 +307,12 @@ if s:bundled('unite.vim')
   nnoremap <silent> [unite]e   :<C-u>Unite snippet<CR>
   nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
   nnoremap <silent> [unite]p   :<C-u>Unite ref/perldoc<CR>
+
+  if executable('ag')
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+    let g:unite_source_grep_drecursive_opt = ''
+  endif
 
 endif
 " }}}
@@ -354,35 +383,35 @@ endif
 """"""""""""""""""""""""""""""
 " 挿入モード時、ステータスラインの色を変更
 """"""""""""""""""""""""""""""
-let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
-
-if has('syntax')
-  augroup InsertHook
-    autocmd!
-    autocmd InsertEnter * call s:StatusLine('Enter')
-    autocmd InsertLeave * call s:StatusLine('Leave')
-  augroup END
-endif
-
-let s:slhlcmd = ''
-function! s:StatusLine(mode)
-  if a:mode == 'Enter'
-    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-    silent exec g:hi_insert
-  else
-    highlight clear StatusLine
-    silent exec s:slhlcmd
-  endif
-endfunction
-
-function! s:GetHighlight(hi)
-  redir => hl
-  exec 'highlight '.a:hi
-  redir END
-  let hl = substitute(hl, '[\r\n]', '', 'g')
-  let hl = substitute(hl, 'xxx', '', '')
-  return hl
-endfunction
+" let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
+"
+" if has('syntax')
+"   augroup InsertHook
+"     autocmd!
+"     autocmd InsertEnter * call s:StatusLine('Enter')
+"     autocmd InsertLeave * call s:StatusLine('Leave')
+"   augroup END
+" endif
+"
+" let s:slhlcmd = ''
+" function! s:StatusLine(mode)
+"   if a:mode == 'Enter'
+"     silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+"     silent exec g:hi_insert
+"   else
+"     highlight clear StatusLine
+"     silent exec s:slhlcmd
+"   endif
+" endfunction
+"
+" function! s:GetHighlight(hi)
+"   redir => hl
+"   exec 'highlight '.a:hi
+"   redir END
+"   let hl = substitute(hl, '[\r\n]', '', 'g')
+"   let hl = substitute(hl, 'xxx', '', '')
+"   return hl
+" endfunction
 """"""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""
@@ -465,4 +494,69 @@ if s:bundled('vim-smartword')
 endif
 " }}}
 
+"---------------------------------------------------------------------------
+" for ryoppy/vim-scp-upload {{{2
+if s:bundled('vim-scp-upload')
+  let g:vim_scp_configs = {
+  \  'mps_myshop12_server' : {
+  \    'local_base_path'  : '/Users/kentarou.tada/work/proj/mps/aumyshop/trunk/webui/Ver11/aumypremiershop.jp/',
+  \    'remote_base_path' : '/srv/www/dev/myshop12/aumypremiershop.jp/',
+  \    'user' : 'myshop12',
+  \    'pass' : 'Ag45Aydc',
+  \    'host' : '219.94.191.114',
+  \    'port' : '22'
+  \  }
+  \}
+  nnoremap <Space>s <ESC>:call ScpUpload()<CR>
+endif
+" }}}
 
+"---------------------------------------------------------------------------
+" for kana/vim-submode {{{2
+if s:bundled('vim-submode')
+  " undo/redo
+  call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+')
+  call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-')
+  call submode#map('undo/redo', 'n', '', '+', 'g+')
+  call submode#map('undo/redo', 'n', '', '-', 'g-')
+
+  " move tab
+  call submode#enter_with('tabmove', 'n', '', 'gt', 'gt')
+  call submode#enter_with('tabmove', 'n', '', 'gT', 'gT')
+  call submode#map('tabmove', 'n', '', 't', 'gt')
+  call submode#map('tabmove', 'n', '', 't', 'gT')
+
+  " move window
+  call submode#enter_with('windowmove', 'n', '', '<Space>ww', '<C-w>w')
+  call submode#enter_with('windowmove', 'n', '', '<Space>Ww', '<C-w>w')
+  call submode#enter_with('windowmove', 'n', '', '<Space>wW', '<C-w>W')
+  call submode#enter_with('windowmove', 'n', '', '<Space>WW', '<C-w>W')
+  call submode#map('windowmove', 'n', '', 'w', '<C-w>w')
+  call submode#map('windowmove', 'n', '', 'W', '<C-w>W')
+
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+"" for vim-scripts/taglist.vim {{{2
+if s:bundled('taglist.vim')
+  set tags=tags
+  let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+  " 現在編集中のファイルのタグのみを表示
+  let Tlist_Show_One_File = 1 
+  " タグリストを右側に表示
+  let Tlist_Use_Right_Window = 1
+  " taglistが最後のWindowならVimを閉じる
+  let Tlist_Exit_OnlyWindow = 1
+  let g:tlist_php_settings = 'php;c:class;d:constant;f:function'
+  nnoremap <Space>tl :TlistToggle<CR>
+
+  autocmd vimenter * TlistToggle
+endif
+" }}}
+
+if s:bundled('scrooloose/nerdtree')
+  if !argc()
+    autocmd vimenter * NERDTree|normal gg3j
+  endif
+endif
