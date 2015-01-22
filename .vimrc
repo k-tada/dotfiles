@@ -551,11 +551,13 @@ if s:bundled('taglist.vim')
   let g:tlist_php_settings = 'php;c:class;d:constant;f:function'
   nnoremap <Space>tl :TlistToggle<CR>
 
-  autocmd vimenter * TlistToggle
+  " if !argc()
+    autocmd vimenter * TlistToggle
+  " endif
 endif
 " }}}
 
-if s:bundled('scrooloose/nerdtree')
+if s:bundled('nerdtree')
   if !argc()
     autocmd vimenter * NERDTree|normal gg3j
   endif
