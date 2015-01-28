@@ -148,6 +148,9 @@ if s:bundled('neobundle.vim')
   NeoBundle 'vim-scripts/taglist.vim'
   NeoBundle 'szw/vim-tags'
 
+  " Ctags自動実行
+  NeoBundle 'soramugi/auto-ctags.vim'
+
   " If there are uninstalled bundles found on startup,
   " this will conveniently prompt you to install them.
   NeoBundleCheck
@@ -238,6 +241,13 @@ let g:indent_guides_enable_on_vim_startup = 1
 
 autocmd QuickFixCmdPost *grep* cwindow
 
+" tag jump
+nnoremap [tagjump] <Nop>
+nmap     <Space>t  [tagjump]
+
+nnoremap [tagjump]t <C-]>
+nnoremap [tagjump]b <C-t>
+
 """"""""""""""""""""""""""""""
 " NeoComplete.vimの設定
 """"""""""""""""""""""""""""""
@@ -295,8 +305,8 @@ if s:bundled('unite.vim')
   nnoremap <silent> [unite]s   :<C-u>Unite source<CR>
   nnoremap <silent> [unite]f   :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
   nnoremap <silent> [unite]g   :<C-u>Unite grep<CR>
-  nnoremap <silent> ,g         :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-  nnoremap <silent> ,cg        :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+  nnoremap <silent> ,g         :<C-u>Unite grep -buffer-name=search-buffer<CR>
+  nnoremap <silent> ,cg        :<C-u>Unite grep -buffer-name=search-buffer<CR><C-R><C-W>
   nnoremap <silent> ,r         :<C-u>UniteResume search-buffer<CR>
   nnoremap <silent> [unite]h   :<C-u>Unite help<CR>
   nnoremap <silent> [unite];   :<C-u>Unite history/command<CR>
@@ -313,6 +323,8 @@ if s:bundled('unite.vim')
     let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
     let g:unite_source_grep_drecursive_opt = ''
   endif
+
+  call unite#custom#default_action('file', 'tabswitch')
 
 endif
 " }}}
@@ -524,7 +536,7 @@ if s:bundled('vim-submode')
   call submode#enter_with('tabmove', 'n', '', 'gt', 'gt')
   call submode#enter_with('tabmove', 'n', '', 'gT', 'gT')
   call submode#map('tabmove', 'n', '', 't', 'gt')
-  call submode#map('tabmove', 'n', '', 't', 'gT')
+  call submode#map('tabmove', 'n', '', 'T', 'gT')
 
   " move window
   call submode#enter_with('windowmove', 'n', '', '<Space>ww', '<C-w>w')
@@ -552,13 +564,30 @@ if s:bundled('taglist.vim')
   nnoremap <Space>tl :TlistToggle<CR>
 
   " if !argc()
-    autocmd vimenter * TlistToggle
+    " autocmd vimenter * TlistToggle
   " endif
 endif
 " }}}
 
+"---------------------------------------------------------------------------
+"" for scrooloose/nerdtree {{{2
 if s:bundled('nerdtree')
+  nmap <silent> <Space>ne      :NERDTreeToggle<CR>
+
   if !argc()
     autocmd vimenter * NERDTree|normal gg3j
   endif
+  if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary")
+    autocmd bufenter * q
+  endif
 endif
+" }}}
+
+"---------------------------------------------------------------------------
+"" for soramugi/auto-ctags.vim {{{2
+if s:bundled('auto-ctags.vim')
+  let g:auto_ctags = 1
+  let g:auto_ctags_directory_list = ['.git', '.svn']
+  set tags+=.svn/tags
+endif
+
