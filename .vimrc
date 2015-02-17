@@ -38,7 +38,7 @@ if s:bundled('neobundle.vim')
   NeoBundleFetch "Shougo/neobundle.vim"
 
   " ファイルオープンを便利に
-  " <Space>u*で起動。多分uuしか使わない
+  " <Space>u*で起動。
   NeoBundle 'Shougo/unite.vim'
   call neobundle#config('unite.vim',{
       \ 'lazy' : 1,
@@ -52,6 +52,17 @@ if s:bundled('neobundle.vim')
       \     'UniteWithInput'
       \   ]
       \ }})
+  " uniteでアウトラインを利用可能にする
+  " <Space>uoで起動。
+  NeoBundle 'Shougo/unite-outline', '', 'default'
+  call neobundle#config('unite-outline', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'unite_sources' : 'outline',
+      \ }})
+  NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
+      \ 'unite_sources' : ['history/command', 'history/search'],
+      \ }} 
   " Unite.vimで最近使ったファイルを表示できるようにする
   NeoBundle 'Shougo/neomru.vim'
 
@@ -117,7 +128,12 @@ if s:bundled('neobundle.vim')
 
   " Gistクライアント
   " :Gistaで起動
-  NeoBundle 'lambdalisue/vim-gista'
+  NeoBundleLazy 'lambdalisue/vim-gista', {
+    \ 'autoload': {
+    \    'commands': ['Gista'],
+    \    'mappings': '<Plug>(gista-',
+    \    'unite_sources': 'gista',
+    \}}
 
   """ For Ruby {{{
   " Ruby endを自動挿入
@@ -150,6 +166,48 @@ if s:bundled('neobundle.vim')
 
   " Ctags自動実行
   NeoBundle 'soramugi/auto-ctags.vim'
+
+  " HTTPステータスコードを調べる
+  " :HttpStatus 4 => 4xxのコードを列挙
+  NeoBundleLazy 'mattn/httpstatus-vim', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'HttpStatus',
+    \   ],
+    \   'unite_sources' : 'httpstatus',
+    \ }}
+
+  "---------------------------------------------------------------------------
+  " テキストオブジェクト関連 
+  "   ベース
+  NeoBundle 'kana/vim-textobj-user'
+
+  "   バッファ全体 ae ie
+  NeoBundle 'kana/vim-textobj-entire',
+        \ { 'depends' : 'kana/vim-textobj-user' }
+  "   関数内 aF iF
+  NeoBundle 'kana/vim-textobj-function',
+        \ { 'depends' : 'kana/vim-textobj-user' }
+  "   カーソル位置と同じインデント aI iI
+  NeoBundle 'kana/vim-textobj-indent',
+        \ { 'depends' : 'kana/vim-textobj-user' }
+  "   カーソル行 al il
+  NeoBundle 'kana/vim-textobj-line',
+        \ { 'depends' : 'kana/vim-textobj-user' }
+  "   URL au iu
+  NeoBundle 'mattn/vim-textobj-url',
+        \ { 'depends' : 'kana/vim-textobj-user' }
+  "   引数 a, i,
+  NeoBundle 'sgur/vim-textobj-parameter',
+        \ { 'depends' : 'kana/vim-textobj-user' }
+  "   特定の文字の間 af{char} if{char}
+  NeoBundle 'thinca/vim-textobj-between',
+      \ { 'depends' : 'kana/vim-textobj-user' }
+  "   括弧内 ab ib
+  NeoBundle 'kana/vim-textobj-jabraces',
+      \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'osyo-manga/vim-textobj-multitextobj',
+      \ { 'depends' : 'kana/vim-textobj-user' }
 
   " If there are uninstalled bundles found on startup,
   " this will conveniently prompt you to install them.
@@ -216,13 +274,15 @@ set clipboard+=unnamed
 set noswapfile
 " Undoファイルの保存先変更
 if has('unix')
-  set undodir=/tmp/vim/undo
+  silent !mkdir -p ~/temp/vim/undo > /dev/null 2>&1
+  set undodir=~/temp/vim/undo
 else
   set undodir=c:/vim/undo
 end
 " バックアップファイルの保存先変更
 if has('unix')
-  set backupdir=/tmp/vim/backup
+  silent !mkdir -p ~/temp/vim/backup > /dev/null 2>&1
+  set backupdir=~/temp/vim/backup
 else
   set backupdir=c:/vim/backup
 end
@@ -240,6 +300,11 @@ set fileformats=unix,dos,mac
 let g:indent_guides_enable_on_vim_startup = 1
 
 autocmd QuickFixCmdPost *grep* cwindow
+
+" if has('mac')
+"   noremap! ¥ \
+"   noremap! \ ¥
+" endif
 
 " tag jump
 nnoremap [tagjump] <Nop>
@@ -316,7 +381,7 @@ if s:bundled('unite.vim')
   nnoremap <silent> [unite]n   :<C-u>Unite neobundle/install:!<CR>
   nnoremap <silent> [unite]e   :<C-u>Unite snippet<CR>
   nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
-  nnoremap <silent> [unite]p   :<C-u>Unite ref/perldoc<CR>
+  " nnoremap <silent> [unite]p   :<C-u>Unite ref/perldoc<CR>
 
   if executable('ag')
     let g:unite_source_grep_command = 'ag'
@@ -476,6 +541,7 @@ endif
 " for lambdalisue/vim-gista {{{2
 if s:bundled('vim-gista')
   let g:gista#github_user="k-tada"
+  let g:gista#post_private = 1
 endif
 " }}}
 
@@ -503,23 +569,6 @@ if s:bundled('vim-smartword')
     vmap ge <Plug>(smartword-ge)
   endif
   omap ge <Plug>(smartword-ge)
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for ryoppy/vim-scp-upload {{{2
-if s:bundled('vim-scp-upload')
-  let g:vim_scp_configs = {
-  \  'mps_myshop12_server' : {
-  \    'local_base_path'  : '/Users/kentarou.tada/work/proj/mps/aumyshop/trunk/webui/Ver11/aumypremiershop.jp/',
-  \    'remote_base_path' : '/srv/www/dev/myshop12/aumypremiershop.jp/',
-  \    'user' : 'myshop12',
-  \    'pass' : 'Ag45Aydc',
-  \    'host' : '219.94.191.114',
-  \    'port' : '22'
-  \  }
-  \}
-  nnoremap <Space>s <ESC>:call ScpUpload()<CR>
 endif
 " }}}
 
@@ -590,4 +639,74 @@ if s:bundled('auto-ctags.vim')
   let g:auto_ctags_directory_list = ['.git', '.svn']
   set tags+=.svn/tags
 endif
+" }}}
+
+"---------------------------------------------------------------------------
+"" for mattn/emmet-vim {{{2
+if s:bundled('emmet-vim')
+  let g:user_emmet_leader_key = '<c-e>'
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+"" for textobj plugins {{{2
+if s:bundled('kana/vim-textobj-user')
+  if (s:bundled('kana/vim-textobj-function') && s:bundled('thinca/vim-textobj-between'))
+    omap iF <Plug>(textobj-function-i)
+    omap aF <Plug>(textobj-function-a)
+    vmap iF <Plug>(textobj-function-i)
+    vmap aF <Plug>(textobj-function-a)
+  endif
+
+  if (s:bundled('kana/vim-textobj-jabraces') && s:bundled('osyo-manga/vim-textobj-multitextobj'))
+    let g:textobj_multitextobj_textobjects_i = [
+        \ "\<Plug>(textobj-multiblock-i)",
+        \ "\<Plug>(textobj-jabraces-parens-i)",
+        \ "\<Plug>(textobj-jabraces-braces-i)",
+        \ "\<Plug>(textobj-jabraces-brackets-i)",
+        \ "\<Plug>(textobj-jabraces-angles-i)",
+        \ "\<Plug>(textobj-jabraces-double-angles-i)",
+        \ "\<Plug>(textobj-jabraces-kakko-i)",
+        \ "\<Plug>(textobj-jabraces-double-kakko-i)",
+        \ "\<Plug>(textobj-jabraces-yama-kakko-i)",
+        \ "\<Plug>(textobj-jabraces-double-yama-kakko-i)",
+        \ "\<Plug>(textobj-jabraces-kikkou-kakko-i)",
+        \ "\<Plug>(textobj-jabraces-sumi-kakko-i)",
+        \]
+    let g:textobj_multitextobj_textobjects_a = [
+        \ "\<Plug>(textobj-multiblock-a)",
+        \ "\<Plug>(textobj-jabraces-parens-a)",
+        \ "\<Plug>(textobj-jabraces-braces-a)",
+        \ "\<Plug>(textobj-jabraces-brackets-a)",
+        \ "\<Plug>(textobj-jabraces-angles-a)",
+        \ "\<Plug>(textobj-jabraces-double-angles-a)",
+        \ "\<Plug>(textobj-jabraces-kakko-a)",
+        \ "\<Plug>(textobj-jabraces-double-kakko-a)",
+        \ "\<Plug>(textobj-jabraces-yama-kakko-a)",
+        \ "\<Plug>(textobj-jabraces-double-yama-kakko-a)",
+        \ "\<Plug>(textobj-jabraces-kikkou-kakko-a)",
+        \ "\<Plug>(textobj-jabraces-sumi-kakko-a)",
+        \]
+    omap ab <Plug>(textobj-multitextobj-a)
+    omap ib <Plug>(textobj-multitextobj-i)
+    vmap ab <Plug>(textobj-multitextobj-a)
+    vmap ib <Plug>(textobj-multitextobj-i)
+  endif
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" local設定読み込み
+"---------------------------------------------------------------------------
+augroup vimrc-local
+  autocmd!
+  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+  autocmd BufReadPre .vimprojects set ft=vim
+augroup END
+function! s:vimrc_local(loc)
+  let files = findfile('.vimprojects', escape(a:loc, ' ') . ';', -1)
+  for i in reverse(filter(files, 'filereadable(v:val)'))
+    source `=i`
+  endfor
+endfunction
 
