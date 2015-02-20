@@ -9,7 +9,7 @@ endif
 let $VIMBUNDLE=$DOTVIM.'/bundle'
 let $NEOBUNDLEPATH=$VIMBUNDLE.'/neobundle.vim'
 
-function! s:bundled(bundle)
+function! Bundled(bundle)
   if !isdirectory($VIMBUNDLE)
     return 0
   endif
@@ -31,7 +31,7 @@ if has('vim_starting') && isdirectory($NEOBUNDLEPATH)
   set runtimepath+=$NEOBUNDLEPATH
 endif
 
-if s:bundled('neobundle.vim')
+if Bundled('neobundle.vim')
   call neobundle#begin(expand($VIMBUNDLE))
 
   " originalrepos on github
@@ -62,7 +62,7 @@ if s:bundled('neobundle.vim')
       \ }})
   NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
       \ 'unite_sources' : ['history/command', 'history/search'],
-      \ }} 
+      \ }}
   " Unite.vimで最近使ったファイルを表示できるようにする
   NeoBundle 'Shougo/neomru.vim'
 
@@ -151,7 +151,7 @@ if s:bundled('neobundle.vim')
 
   " w, b, eなどの移動をスマートに
   NeoBundle 'kana/vim-smartword'
-  
+
   " サブモード設定可能に
   NeoBundle 'kana/vim-submode'
 
@@ -178,7 +178,7 @@ if s:bundled('neobundle.vim')
     \ }}
 
   "---------------------------------------------------------------------------
-  " テキストオブジェクト関連 
+  " テキストオブジェクト関連
   "   ベース
   NeoBundle 'kana/vim-textobj-user'
 
@@ -208,6 +208,9 @@ if s:bundled('neobundle.vim')
       \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'osyo-manga/vim-textobj-multitextobj',
       \ { 'depends' : 'kana/vim-textobj-user' }
+
+  " 末尾のスペースを表示
+  NeoBundle 'bronson/vim-trailing-whitespace'
 
   " If there are uninstalled bundles found on startup,
   " this will conveniently prompt you to install them.
@@ -350,13 +353,13 @@ endif
 
 "---------------------------------------------------------------------------
 "" for Shougo/unite.vim {{{2
-if s:bundled('unite.vim')
+if Bundled('unite.vim')
   " insert modeで開始
   let g:unite_enable_start_insert = 1
 
   " 大文字小文字を区別しない
-  let g:unite_enable_ignore_case = 1 
-  let g:unite_enable_smart_case = 1 
+  let g:unite_enable_ignore_case = 1
+  let g:unite_enable_smart_case = 1
   nnoremap [unite]    <Nop>
   nmap     <Space>u [unite]
 
@@ -512,14 +515,14 @@ endif
 
 "---------------------------------------------------------------------------
 " for kana/vim-operator-replace {{{2
-if s:bundled('vim-operator-user') && s:bundled('vim-operator-replace')
+if Bundled('vim-operator-user') && Bundled('vim-operator-replace')
   map R  <Plug>(operator-replace)
 endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for kana/vim-altr {{{2
-if s:bundled('vim-altr')
+if Bundled('vim-altr')
   call altr#remove_all()
   call altr#define('plugin/%/*.vim', 'autoload/%/*.vim')
   call altr#define('plugin/%.vim',   'autoload/%.vim')
@@ -539,7 +542,7 @@ endif
 
 "---------------------------------------------------------------------------
 " for lambdalisue/vim-gista {{{2
-if s:bundled('vim-gista')
+if Bundled('vim-gista')
   let g:gista#github_user="k-tada"
   let g:gista#post_private = 1
 endif
@@ -547,7 +550,7 @@ endif
 
 "---------------------------------------------------------------------------
 " for haya14busa/incsearch.vim {{{2
-if s:bundled('incsearch.vim')
+if Bundled('incsearch.vim')
   map /  <Plug>(incsearch-forward)
   map ?  <Plug>(incsearch-backward)
   map g/ <Plug>(incsearch-stay)
@@ -556,12 +559,12 @@ endif
 
 "---------------------------------------------------------------------------
 " for kana/vim-smartword {{{2
-if s:bundled('vim-smartword')
+if Bundled('vim-smartword')
   nmap w  <Plug>(smartword-w)
   vmap w  <Plug>(smartword-w)
   map  b  <Plug>(smartword-b)
   map  e  <Plug>(smartword-e)
-  if s:bundled('vim-submode')
+  if Bundled('vim-submode')
     call submode#enter_with('ge-mode', 'nv', 'r', 'ge', '<Plug>(smartword-ge)')
     call submode#map('ge-mode', 'nv', 'r', 'e', '<Plug>(smartword-ge)')
   else
@@ -574,7 +577,7 @@ endif
 
 "---------------------------------------------------------------------------
 " for kana/vim-submode {{{2
-if s:bundled('vim-submode')
+if Bundled('vim-submode')
   " undo/redo
   call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+')
   call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-')
@@ -595,16 +598,26 @@ if s:bundled('vim-submode')
   call submode#map('windowmove', 'n', '', 'w', '<C-w>w')
   call submode#map('windowmove', 'n', '', 'W', '<C-w>W')
 
+  " resize window
+  call submode#enter_with('windowresize', 'n', '', '<Space>wh', '<C-w><C-<>')
+  call submode#enter_with('windowresize', 'n', '', '<Space>wl', '<C-w><C->>')
+  call submode#enter_with('windowresize', 'n', '', '<Space>wk', '<C-w><C-+>')
+  call submode#enter_with('windowresize', 'n', '', '<Space>wj', '<C-w><C-->')
+  call submode#map('windowresize', 'n', '', 'h', '<C-w><C-<>')
+  call submode#map('windowresize', 'n', '', 'l', '<C-w><C->>')
+  call submode#map('windowresize', 'n', '', 'k', '<C-w><C-+>')
+  call submode#map('windowresize', 'n', '', 'j', '<C-w><C-->')
+
 endif
 " }}}
 
 "---------------------------------------------------------------------------
 "" for vim-scripts/taglist.vim {{{2
-if s:bundled('taglist.vim')
+if Bundled('taglist.vim')
   set tags=tags
   let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
   " 現在編集中のファイルのタグのみを表示
-  let Tlist_Show_One_File = 1 
+  let Tlist_Show_One_File = 1
   " タグリストを右側に表示
   let Tlist_Use_Right_Window = 1
   " taglistが最後のWindowならVimを閉じる
@@ -620,7 +633,7 @@ endif
 
 "---------------------------------------------------------------------------
 "" for scrooloose/nerdtree {{{2
-if s:bundled('nerdtree')
+if Bundled('nerdtree')
   nmap <silent> <Space>ne      :NERDTreeToggle<CR>
 
   if !argc()
@@ -634,7 +647,7 @@ endif
 
 "---------------------------------------------------------------------------
 "" for soramugi/auto-ctags.vim {{{2
-if s:bundled('auto-ctags.vim')
+if Bundled('auto-ctags.vim')
   let g:auto_ctags = 1
   let g:auto_ctags_directory_list = ['.git', '.svn']
   set tags+=.svn/tags
@@ -643,22 +656,22 @@ endif
 
 "---------------------------------------------------------------------------
 "" for mattn/emmet-vim {{{2
-if s:bundled('emmet-vim')
+if Bundled('emmet-vim')
   let g:user_emmet_leader_key = '<c-e>'
 endif
 " }}}
 
 "---------------------------------------------------------------------------
 "" for textobj plugins {{{2
-if s:bundled('kana/vim-textobj-user')
-  if (s:bundled('kana/vim-textobj-function') && s:bundled('thinca/vim-textobj-between'))
+if Bundled('kana/vim-textobj-user')
+  if (Bundled('kana/vim-textobj-function') && Bundled('thinca/vim-textobj-between'))
     omap iF <Plug>(textobj-function-i)
     omap aF <Plug>(textobj-function-a)
     vmap iF <Plug>(textobj-function-i)
     vmap aF <Plug>(textobj-function-a)
   endif
 
-  if (s:bundled('kana/vim-textobj-jabraces') && s:bundled('osyo-manga/vim-textobj-multitextobj'))
+  if (Bundled('kana/vim-textobj-jabraces') && Bundled('osyo-manga/vim-textobj-multitextobj'))
     let g:textobj_multitextobj_textobjects_i = [
         \ "\<Plug>(textobj-multiblock-i)",
         \ "\<Plug>(textobj-jabraces-parens-i)",
@@ -694,6 +707,14 @@ if s:bundled('kana/vim-textobj-user')
   endif
 endif
 " }}}
+
+"---------------------------------------------------------------------------
+"" for mattn/emmet-vim {{{2
+if Bundled('vim-trailing-whitespace')
+  let g:extra_whitespace_ignored_filetypes = ['unite', 'mkd']
+endif
+" }}}
+
 
 "---------------------------------------------------------------------------
 " local設定読み込み
