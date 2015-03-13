@@ -37,6 +37,9 @@ if Bundled('neobundle.vim')
   " originalrepos on github
   NeoBundleFetch "Shougo/neobundle.vim"
 
+  " アラインツール
+  NeoBundle 'Align'
+
   " ファイルオープンを便利に
   " <Space>u*で起動。
   NeoBundle 'Shougo/unite.vim'
@@ -211,6 +214,13 @@ if Bundled('neobundle.vim')
 
   " 末尾のスペースを表示
   NeoBundle 'bronson/vim-trailing-whitespace'
+  
+  " 現在の状況を保存、復元
+  " :ReanimateSave, :ReanimateLoad
+  NeoBundle 'osyo-manga/vim-reanimate'
+
+  " 複数選択（SublimeTextのCmd+D）
+  NeoBundle 'terryma/vim-multiple-cursors'
 
   " If there are uninstalled bundles found on startup,
   " this will conveniently prompt you to install them.
@@ -315,6 +325,9 @@ nmap     <Space>t  [tagjump]
 
 nnoremap [tagjump]t <C-]>
 nnoremap [tagjump]b <C-t>
+
+nmap <F1> <nop>
+imap <F1> <nop>
 
 """"""""""""""""""""""""""""""
 " NeoComplete.vimの設定
