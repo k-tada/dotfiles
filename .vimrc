@@ -69,8 +69,6 @@ if Bundled('neobundle.vim')
   " Unite.vimで最近使ったファイルを表示できるようにする
   NeoBundle 'Shougo/neomru.vim'
 
-  NeoBundle 'Shougo/vimproc'
-
   " ファイルをtree表示してくれる
   " :NerdTree
   NeoBundle 'scrooloose/nerdtree'
@@ -83,6 +81,12 @@ if Bundled('neobundle.vim')
   " テキストオブジェクトで置換
   NeoBundle 'kana/vim-operator-replace.git'
   NeoBundle 'kana/vim-operator-user.git'
+
+  " 検索補助、snake_case<->camelCase置き換え等
+  " :S/{pattern} で検索
+  " :S/{src}/{dst}/{flag} で置換
+  " cr[scmu] でそれぞれsnake_case, camelCase, MixedCase, UPPER_CASEに置き換え
+  NeoBundle 'tpope/vim-abolish'
 
   " 開いているファイルに関係するファイルを開いてくれる
   " :Afでフォワード、:Abでバック
@@ -117,7 +121,8 @@ if Bundled('neobundle.vim')
 
   NeoBundle 'itchyny/lightline.vim'
 
-  " NeoBundle 'Shougo/vimshell'
+  NeoBundle 'Shougo/vimshell'
+  NeoBundle 'Shougo/vimproc'
 
   " Complete
   " Tabで選択、Enterで展開
@@ -285,6 +290,8 @@ set whichwrap=b,s,h,l,<,>,[,]
 set clipboard+=unnamed
 " スワップファイルは使わない
 set noswapfile
+" Ctrl + a,xでの増減は10進、アルファベット、16進
+set nrformats=alpha,hex
 " Undoファイルの保存先変更
 if has('unix')
   silent !mkdir -p ~/temp/vim/undo > /dev/null 2>&1
@@ -326,8 +333,14 @@ nmap     <Space>t  [tagjump]
 nnoremap [tagjump]t <C-]>
 nnoremap [tagjump]b <C-t>
 
+" F1でヘルプ開くのを無効化
 nmap <F1> <nop>
 imap <F1> <nop>
+
+nnoremap <silent> <C-p> p
+vnoremap <silent> <C-p> p
+nnoremap <silent> p "0p
+vnoremap <silent> p "0p
 
 """"""""""""""""""""""""""""""
 " NeoComplete.vimの設定
@@ -380,7 +393,7 @@ if Bundled('unite.vim')
   nnoremap <silent> [unite]b   :<C-u>Unite buffer<CR>
   nnoremap <silent> [unite]r   :<C-u>Unite register<CR>
   nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
-  nnoremap <silent> [unite]u   :<C-u>Unite file_mru<CR>
+  nnoremap <silent> [unite]u   :<C-u>Unite file_rec/async<CR>
   nnoremap <silent> [unite]d   :<C-u>Unite directory_mru<CR>
   nnoremap <silent> [unite]k   :<C-u>Unite bookmark<CR>
   nnoremap <silent> [unite]s   :<C-u>Unite source<CR>
