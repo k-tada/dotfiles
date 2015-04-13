@@ -227,6 +227,9 @@ if Bundled('neobundle.vim')
   " 複数選択（SublimeTextのCmd+D）
   NeoBundle 'terryma/vim-multiple-cursors'
 
+  " matchit.vim
+  NeoBundle 'tmhedberg/matchit'
+
   " If there are uninstalled bundles found on startup,
   " this will conveniently prompt you to install them.
   NeoBundleCheck
@@ -291,7 +294,7 @@ set clipboard+=unnamed
 " スワップファイルは使わない
 set noswapfile
 " Ctrl + a,xでの増減は10進、アルファベット、16進
-set nrformats=alpha,hex
+set nrformats=hex
 " Undoファイルの保存先変更
 if has('unix')
   silent !mkdir -p ~/temp/vim/undo > /dev/null 2>&1
