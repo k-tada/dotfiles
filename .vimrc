@@ -131,6 +131,8 @@ if Bundled('neobundle.vim')
   " Tabで選択、Ctrl+Spaceで展開
   NeoBundle 'Shougo/neosnippet.vim'
   NeoBundle 'Shougo/neosnippet-snippets'
+  NeoBundle "honza/vim-snippets"
+
   " File Syntax Checker
   " NeoBundle 'scrooloose/syntastic'
 
@@ -345,6 +347,12 @@ vnoremap <silent> <C-p> p
 nnoremap <silent> p "0p
 vnoremap <silent> p "0p
 
+" 新規タブ
+nnoremap <silent> gn :<C-u>tabnew<CR>
+
+" MacVim用折り返し位置設定
+autocmd FileType text setlocal textwidth=0
+
 """"""""""""""""""""""""""""""
 " NeoComplete.vimの設定
 """"""""""""""""""""""""""""""
@@ -397,6 +405,7 @@ if Bundled('unite.vim')
   nnoremap <silent> [unite]r   :<C-u>Unite register<CR>
   nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
   nnoremap <silent> [unite]u   :<C-u>Unite file_rec/async<CR>
+  nnoremap <Space><Space>      :<C-u>Unite file_rec/async<CR>
   nnoremap <silent> [unite]d   :<C-u>Unite directory_mru<CR>
   nnoremap <silent> [unite]k   :<C-u>Unite bookmark<CR>
   nnoremap <silent> [unite]s   :<C-u>Unite source<CR>
@@ -747,6 +756,9 @@ endif
 
 "---------------------------------------------------------------------------
 " local設定読み込み
+"   ディレクトリ単位で固有の設定を持つ場合、
+"   そのディレクトリに.vimprojectsファイルを設定し、
+"   そこに固有の設定を記載する
 "---------------------------------------------------------------------------
 augroup vimrc-local
   autocmd!
