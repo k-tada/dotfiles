@@ -673,6 +673,12 @@ endif
 "" for scrooloose/nerdtree {{{2
 if Bundled('nerdtree')
   nmap <silent> <Space>ne      :NERDTreeToggle<CR>
+  " 隠しファイルを表示
+  let NERDTreeShowHidden = 1
+  " 表示幅
+  let NERDTreeWinSize = 50
+  " 表示フィルタ
+  let NERDTreeIgnore = ['\.svn$', '\~$']
 
   if !argc()
     autocmd vimenter * NERDTree|normal gg3j
