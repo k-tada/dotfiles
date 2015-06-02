@@ -678,7 +678,7 @@ if Bundled('nerdtree')
   " 表示幅
   let NERDTreeWinSize = 50
   " 表示フィルタ
-  let NERDTreeIgnore = ['\.svn$', '\~$']
+  let NERDTreeIgnore = ['\.svn$', '\~$', '\.DS_Store']
 
   if !argc()
     autocmd vimenter * NERDTree|normal gg3j
