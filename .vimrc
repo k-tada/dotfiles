@@ -464,14 +464,20 @@ nmap - :Switch<CR>
 """"""""""""""""""""""""""""""
 " lightline.vimの設定
 """"""""""""""""""""""""""""""
-let g:lightline = {
-      \ 'colorscheme': 'landscape',
-      \ 'component': {
-      \   'readonly': '%{&readonly?"⭤":""}',
-      \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
-      \ }
+if has('unix')
+    let g:lightline = {
+          \ 'colorscheme': 'landscape',
+          \ 'component': {
+          \   'readonly': '%{&readonly?"⭤":""}',
+          \ },
+          \ 'separator': { 'left': '⮀', 'right': '⮂' },
+          \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+          \ }
+else
+    let g:lightline = {
+          \ 'colorscheme': 'landscape',
+          \ }
+endif
 
 if !has('gui_running')
   set t_Co=256
