@@ -122,7 +122,14 @@ if Bundled('neobundle.vim')
   NeoBundle 'itchyny/lightline.vim'
 
   NeoBundle 'Shougo/vimshell'
-  NeoBundle 'Shougo/vimproc'
+  NeoBundle 'Shougo/vimproc.vim', {
+            \ 'build' : {
+            \     'windows' : 'make -f make_mingw32.mak',
+            \     'cygwin' : 'make -f make_cygwin.mak',
+            \     'mac' : 'make -f make_mac.mak',
+            \     'unix' : 'make -f make_unix.mak',
+            \    },
+            \ }
 
   " Complete
   " Tabで選択、Enterで展開
@@ -311,6 +318,8 @@ if has('unix')
 else
   set backupdir=c:/vim/backup
 end
+" 挿入モードでのバックスペースを有効化
+set backspace=start,eol,indent
 " 構文毎に文字色を変化させる
 syntax on
 """"""""""""""""""""""""""""""
