@@ -40,6 +40,9 @@ if Bundled('neobundle.vim')
   " アラインツール
   NeoBundle 'Align'
 
+  " .editorconfig
+  NeoBundle 'editorconfig/editorconfig-vim'
+
   " ファイルオープンを便利に
   " <Space>u*で起動。
   NeoBundle 'Shougo/unite.vim'
@@ -155,6 +158,15 @@ if Bundled('neobundle.vim')
   """ For Ruby {{{
   " Ruby endを自動挿入
   NeoBundle 'tpope/vim-endwise'
+
+  " ruby用テキストオブジェクト
+  NeoBundle 'rhysd/vim-textobj-ruby'
+
+  " Railsプロジェクト
+  NeoBundle 'tpope/vim-rails'
+
+  " Rails + Unite
+  NeoBundle 'basyura/unite-rails'
   " }}}
 
   " *検索拡張
@@ -194,8 +206,22 @@ if Bundled('neobundle.vim')
     \   'unite_sources' : 'httpstatus',
     \ }}
 
+  " 末尾のスペースを表示
+  NeoBundle 'bronson/vim-trailing-whitespace'
+
+  " 現在の状況を保存、復元
+  " :ReanimateSave, :ReanimateLoad
+  NeoBundle 'osyo-manga/vim-reanimate'
+
+  " 複数選択（SublimeTextのCmd+D）
+  NeoBundle 'terryma/vim-multiple-cursors'
+
+  " matchit.vim
+  NeoBundle 'tmhedberg/matchit'
+
   "---------------------------------------------------------------------------
   " テキストオブジェクト関連
+  ""{{{
   "   ベース
   NeoBundle 'kana/vim-textobj-user'
 
@@ -225,19 +251,30 @@ if Bundled('neobundle.vim')
       \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'osyo-manga/vim-textobj-multitextobj',
       \ { 'depends' : 'kana/vim-textobj-user' }
+  "}}}
 
-  " 末尾のスペースを表示
-  NeoBundle 'bronson/vim-trailing-whitespace'
-  
-  " 現在の状況を保存、復元
-  " :ReanimateSave, :ReanimateLoad
-  NeoBundle 'osyo-manga/vim-reanimate'
+  "---------------------------------------------------------------------------
+  " ハイライト
+  ""{{{
+  " Scala
+  NeoBundle 'derekwyatt/vim-scala'
 
-  " 複数選択（SublimeTextのCmd+D）
-  NeoBundle 'terryma/vim-multiple-cursors'
+  " CoffeeScript
+  NeoBundle 'kchmck/vim-coffee-script'
 
-  " matchit.vim
-  NeoBundle 'tmhedberg/matchit'
+  " CoffeeScript + JSX
+  NeoBundle 'mtscout6/vim-cjsx'
+
+  " Elixir
+  NeoBundle 'elixir-lang/vim-elixir'
+
+  " TypeScript
+  NeoBundle 'leafgarland/typescript-vim'
+
+  " MarkDown
+  NeoBundle 'rcmdnk/vim-markdown'
+
+  "}}}
 
   " If there are uninstalled bundles found on startup,
   " this will conveniently prompt you to install them.
@@ -411,7 +448,7 @@ if Bundled('unite.vim')
 
   nnoremap <silent> [unite]c   :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
   nnoremap <silent> [unite]b   :<C-u>Unite buffer<CR>
-  nnoremap <silent> [unite]r   :<C-u>Unite register<CR>
+  " nnoremap <silent> [unite]r   :<C-u>Unite register<CR>
   nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
   nnoremap <silent> [unite]u   :<C-u>Unite file_rec/async<CR>
   nnoremap <Space><Space>      :<C-u>Unite file_rec/async<CR>
@@ -435,8 +472,12 @@ if Bundled('unite.vim')
 
   if executable('ag')
     let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-    let g:unite_source_grep_drecursive_opt = ''
+    let g:unite_source_grep_default_opts = 
+      \ '--nogroup --nocolor --column'
+      \ . ' --ignore ''.svn'''
+      \ . ' --ignore ''.git'''
+      \ . ' --ignore ''node_modules'''
+    let g:unite_source_grep_recursive_opt = ''
   endif
 
   call unite#custom#default_action('file', 'tabswitch')
@@ -709,6 +750,7 @@ endif
 if Bundled('auto-ctags.vim')
   let g:auto_ctags = 1
   let g:auto_ctags_directory_list = ['.git', '.svn']
+  set tags+=.git/tags
   set tags+=.svn/tags
 endif
 " }}}
@@ -774,6 +816,61 @@ if Bundled('vim-trailing-whitespace')
 endif
 " }}}
 
+"------------------------------------
+" vim-rails
+"------------------------------------
+""{{{
+if Bundled('vim-rails')
+  "有効化
+  let g:rails_default_file='config/database.yml'
+  let g:rails_level = 4
+  let g:rails_mappings=1
+  let g:rails_modelines=0
+  " let g:rails_some_option = 1
+  let g:rails_statusline = 1
+  " let g:rails_subversion=0
+  " let g:rails_syntax = 1
+  " let g:rails_url='http://localhost:3000'
+  " let g:rails_ctags_arguments='--languages=-javascript'
+  " let g:rails_ctags_arguments = ''
+  nnoremap <buffer><Space>r :R<CR>
+  nnoremap <buffer><Space>a :A<CR>
+  nnoremap <buffer><Space>m :Rmodel<Space>
+  nnoremap <buffer><Space>c :Rcontroller<Space>
+  nnoremap <buffer><Space>v :Rview<Space>
+  nnoremap <buffer><Space>p :Rpreview<CR>
+endif
+"}}}
+
+"------------------------------------
+"" Unite-rails.vim
+"------------------------------------
+""{{{
+if Bundled('vim-rails')
+  nnoremap <silent> [unite]rv   :<C-u>Unite rails/view<CR>
+  nnoremap <silent> [unite]rm   :<C-u>Unite rails/model<CR>
+  nnoremap <silent> [unite]rc   :<C-u>Unite rails/controller<CR>
+  nnoremap <silent> [unite]rC   :<C-u>Unite rails/config<CR>
+  nnoremap <silent> [unite]rs   :<C-u>Unite rails/spec<CR>
+  nnoremap <silent> [unite]rl   :<C-u>Unite rails/lib<CR>
+
+  nnoremap <buffer><C-H>m           :<C-U>Unite rails/db -input=migrate<CR>
+  nnoremap <buffer><expr><C-H>g     ':e '.b:rails_root.'/Gemfile<CR>'
+  nnoremap <buffer><expr><C-H>r     ':e '.b:rails_root.'/config/routes.rb<CR>'
+  nnoremap <buffer><expr><C-H>se    ':e '.b:rails_root.'/db/seeds.rb<CR>'
+  nnoremap <buffer><C-H>ra          :<C-U>Unite rails/rake<CR>
+  nnoremap <buffer><C-H>h           :<C-U>Unite rails/heroku<CR>
+endif
+"}}}
+
+"------------------------------------
+"" rcmdnk/vim-markdown
+"------------------------------------
+""{{{
+if Bundled('vim-markdown')
+  let g:vim_markdown_folding_disabled=1
+endif
+"}}}
 
 "---------------------------------------------------------------------------
 " local設定読み込み
