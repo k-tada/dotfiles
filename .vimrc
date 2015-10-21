@@ -446,29 +446,30 @@ if Bundled('unite.vim')
   nnoremap [unite]    <Nop>
   nmap     <Space>u [unite]
 
-  nnoremap <silent> [unite]c   :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
-  nnoremap <silent> [unite]b   :<C-u>Unite buffer<CR>
-  " nnoremap <silent> [unite]r   :<C-u>Unite register<CR>
-  nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
-  nnoremap <silent> [unite]u   :<C-u>Unite file_rec/async<CR>
-  nnoremap <Space><Space>      :<C-u>Unite file_rec/async<CR>
-  nnoremap <silent> [unite]d   :<C-u>Unite directory_mru<CR>
-  nnoremap <silent> [unite]k   :<C-u>Unite bookmark<CR>
-  nnoremap <silent> [unite]s   :<C-u>Unite source<CR>
-  nnoremap <silent> [unite]f   :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-  nnoremap <silent> [unite]g   :<C-u>Unite grep<CR>
-  nnoremap <silent> ,g         :<C-u>Unite grep -buffer-name=search-buffer<CR>
-  nnoremap <silent> ,cg        :<C-u>Unite grep -buffer-name=search-buffer<CR><C-R><C-W>
-  nnoremap <silent> ,r         :<C-u>UniteResume search-buffer<CR>
-  nnoremap <silent> [unite]h   :<C-u>Unite help<CR>
-  nnoremap <silent> [unite];   :<C-u>Unite history/command<CR>
-  nnoremap <silent> [unite]/   :<C-u>Unite history/search<CR>
-  nnoremap <silent> [unite]y   :<C-u>Unite history/yank<CR>
-  nnoremap <silent> [unite]a   :<C-u>UniteBookmarkAdd<CR>
-  nnoremap <silent> [unite]n   :<C-u>Unite neobundle/install:!<CR>
-  nnoremap <silent> [unite]e   :<C-u>Unite snippet<CR>
-  nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
-  " nnoremap <silent> [unite]p   :<C-u>Unite ref/perldoc<CR>
+  nnoremap <silent> [unite]c       :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+  nnoremap <silent> [unite]b       :<C-u>Unite buffer<CR>
+  " nnoremap <silent> [unite]r       :<C-u>Unite register<CR>
+  nnoremap <silent> [unite]o       :<C-u>Unite outline<CR>
+  nnoremap <silent> [unite]u       :<C-u>Unite file_rec/async<CR>
+  nnoremap <silent> [unite]<Space> :<C-u>Unite file_rec/async<CR>
+  " nnoremap <Space><Space>          :<C-u>Unite file_rec/async<CR>
+  nnoremap <silent> [unite]d       :<C-u>Unite directory_mru<CR>
+  nnoremap <silent> [unite]k       :<C-u>Unite bookmark<CR>
+  nnoremap <silent> [unite]s       :<C-u>Unite source<CR>
+  nnoremap <silent> [unite]f       :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+  nnoremap <silent> [unite]g       :<C-u>Unite grep<CR>
+  nnoremap <silent> ,g             :<C-u>Unite grep -buffer-name=search-buffer<CR>
+  nnoremap <silent> ,cg            :<C-u>Unite grep -buffer-name=search-buffer<CR><C-R><C-W>
+  nnoremap <silent> ,r             :<C-u>UniteResume search-buffer<CR>
+  nnoremap <silent> [unite]h       :<C-u>Unite help<CR>
+  nnoremap <silent> [unite];       :<C-u>Unite history/command<CR>
+  nnoremap <silent> [unite]/       :<C-u>Unite history/search<CR>
+  nnoremap <silent> [unite]y       :<C-u>Unite history/yank<CR>
+  nnoremap <silent> [unite]a       :<C-u>UniteBookmarkAdd<CR>
+  nnoremap <silent> [unite]n       :<C-u>Unite neobundle/install                                                  : !<CR>
+  nnoremap <silent> [unite]e       :<C-u>Unite snippet<CR>
+  nnoremap <silent> [unite]q       :<C-u>Unite quickfix<CR>
+  " nnoremap <silent> [unite]p       :<C-u>Unite ref/perldoc<CR>
 
   if executable('ag')
     let g:unite_source_grep_command = 'ag'
