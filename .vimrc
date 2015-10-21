@@ -854,6 +854,7 @@ if Bundled('vim-rails')
   nnoremap <silent> [unite]rC   :<C-u>Unite rails/config<CR>
   nnoremap <silent> [unite]rs   :<C-u>Unite rails/spec<CR>
   nnoremap <silent> [unite]rl   :<C-u>Unite rails/lib<CR>
+  nnoremap <silent> [unite]rh   :<C-u>Unite rails/heroku<CR>
 
   nnoremap <buffer><C-H>m           :<C-U>Unite rails/db -input=migrate<CR>
   nnoremap <buffer><expr><C-H>g     ':e '.b:rails_root.'/Gemfile<CR>'
