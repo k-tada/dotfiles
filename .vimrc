@@ -75,11 +75,15 @@ if Bundled('neobundle.vim')
   " ファイルをtree表示してくれる
   " :NerdTree
   NeoBundle 'scrooloose/nerdtree'
+  NeoBundle 'Xuyuanp/nerdtree-git-plugin'
   " Gitを便利に使う
   " :Gstatus, Gdiff等
   NeoBundle 'tpope/vim-fugitive'
+
   " Git差分表示
   NeoBundle 'airblade/vim-gitgutter'
+
+  NeoBundle 'junegunn/fzf', { 'dir': '~/.fzf' }
 
   " テキストオブジェクトで置換
   NeoBundle 'kana/vim-operator-replace.git'
@@ -93,13 +97,13 @@ if Bundled('neobundle.vim')
 
   " 開いているファイルに関係するファイルを開いてくれる
   " :Afでフォワード、:Abでバック
-  NeoBundleLazy 'kana/vim-altr', {
-      \ 'autoload' : {
-      \   'functions' : [
-      \     'altr#forward',
-      \     'altr#back',
-      \   ]},
-      \ }
+  " NeoBundleLazy 'kana/vim-altr', {
+  "     \ 'autoload' : {
+  "     \   'functions' : [
+  "     \     'altr#forward',
+  "     \     'altr#back',
+  "     \   ]},
+  "     \ }
 
   " コメントON/OFFを手軽に実行
   " 通常モードでgcc, もしくはヴィジュアルモードでgc
@@ -231,6 +235,8 @@ if Bundled('neobundle.vim')
   "   関数内 aF iF
   NeoBundle 'kana/vim-textobj-function',
         \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'thinca/vim-textobj-function-javascript',
+        \ { 'depends' : 'kana/vim-textobj-user' }
   "   カーソル位置と同じインデント aI iI
   NeoBundle 'kana/vim-textobj-indent',
         \ { 'depends' : 'kana/vim-textobj-user' }
@@ -244,8 +250,8 @@ if Bundled('neobundle.vim')
   NeoBundle 'sgur/vim-textobj-parameter',
         \ { 'depends' : 'kana/vim-textobj-user' }
   "   特定の文字の間 af{char} if{char}
-  NeoBundle 'thinca/vim-textobj-between',
-      \ { 'depends' : 'kana/vim-textobj-user' }
+  " NeoBundle 'thinca/vim-textobj-between',
+  "     \ { 'depends' : 'kana/vim-textobj-user' }
   "   括弧内 ab ib
   NeoBundle 'kana/vim-textobj-jabraces',
       \ { 'depends' : 'kana/vim-textobj-user' }
@@ -443,6 +449,8 @@ if Bundled('unite.vim')
   " 大文字小文字を区別しない
   let g:unite_enable_ignore_case = 1
   let g:unite_enable_smart_case = 1
+
+  let g:unite_source_menu_menus = {}
   nnoremap [unite]    <Nop>
   nmap     <Space>u [unite]
 
@@ -466,14 +474,14 @@ if Bundled('unite.vim')
   nnoremap <silent> [unite]/       :<C-u>Unite history/search<CR>
   nnoremap <silent> [unite]y       :<C-u>Unite history/yank<CR>
   nnoremap <silent> [unite]a       :<C-u>UniteBookmarkAdd<CR>
-  nnoremap <silent> [unite]n       :<C-u>Unite neobundle/install                                                  : !<CR>
+  nnoremap <silent> [unite]n       :<C-u>Unite neobundle/install<CR>
   nnoremap <silent> [unite]e       :<C-u>Unite snippet<CR>
   nnoremap <silent> [unite]q       :<C-u>Unite quickfix<CR>
   " nnoremap <silent> [unite]p       :<C-u>Unite ref/perldoc<CR>
 
   if executable('ag')
     let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = 
+    let g:unite_source_grep_default_opts =
       \ '--nogroup --nocolor --column'
       \ . ' --ignore ''.svn'''
       \ . ' --ignore ''.git'''
@@ -481,8 +489,44 @@ if Bundled('unite.vim')
     let g:unite_source_grep_recursive_opt = ''
   endif
 
-  call unite#custom#default_action('file', 'tabswitch')
 
+  let g:unite_source_menu_menus.git = {
+        \ 'description' : '            gestionar repositorios git
+        \                            ⌘ [espacio]g',
+        \}
+  let g:unite_source_menu_menus.git.command_candidates = [
+        \['▷ tig                                                        ⌘ ,gt',
+        \'normal ,gt'],
+        \['▷ git status       (Fugitive)                                ⌘ ,gs',
+        \'Gstatus'],
+        \['▷ git diff         (Fugitive)                                ⌘ ,gd',
+        \'Gdiff'],
+        \['▷ git commit       (Fugitive)                                ⌘ ,gc',
+        \'Gcommit'],
+        \['▷ git log          (Fugitive)                                ⌘ ,gl',
+        \'exe "silent Glog | Unite quickfix"'],
+        \['▷ git blame        (Fugitive)                                ⌘ ,gb',
+        \'Gblame'],
+        \['▷ git stage        (Fugitive)                                ⌘ ,gw',
+        \'Gwrite'],
+        \['▷ git checkout     (Fugitive)                                ⌘ ,go',
+        \'Gread'],
+        \['▷ git rm           (Fugitive)                                ⌘ ,gr',
+        \'Gremove'],
+        \['▷ git mv           (Fugitive)                                ⌘ ,gm',
+        \'exe "Gmove " input("destino: ")'],
+        \['▷ git push         (Fugitive, salida por buffer)             ⌘ ,gp',
+        \'Git! push'],
+        \['▷ git pull         (Fugitive, salida por buffer)             ⌘ ,gP',
+        \'Git! pull'],
+        \['▷ git prompt       (Fugitive, salida por buffer)             ⌘ ,gi',
+        \'exe "Git! " input("comando git: ")'],
+        \['▷ git cd           (Fugitive)',
+        \'Gcd'],
+        \]
+  nnoremap <silent> [unite]g       :<C-u>Unite -silent -start-insert menu:git<CR>
+
+  " call unite#custom#default_action('file', 'tabswitch')
 endif
 " }}}
 
@@ -766,12 +810,12 @@ endif
 "---------------------------------------------------------------------------
 "" for textobj plugins {{{2
 if Bundled('kana/vim-textobj-user')
-  if (Bundled('kana/vim-textobj-function') && Bundled('thinca/vim-textobj-between'))
-    omap iF <Plug>(textobj-function-i)
-    omap aF <Plug>(textobj-function-a)
-    vmap iF <Plug>(textobj-function-i)
-    vmap aF <Plug>(textobj-function-a)
-  endif
+  " if (Bundled('kana/vim-textobj-function') && Bundled('thinca/vim-textobj-between'))
+  "   omap iF <Plug>(textobj-function-i)
+  "   omap aF <Plug>(textobj-function-a)
+  "   vmap iF <Plug>(textobj-function-i)
+  "   vmap aF <Plug>(textobj-function-a)
+  " endif
 
   if (Bundled('kana/vim-textobj-jabraces') && Bundled('osyo-manga/vim-textobj-multitextobj'))
     let g:textobj_multitextobj_textobjects_i = [
