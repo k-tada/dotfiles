@@ -79,6 +79,8 @@ if Bundled('neobundle.vim')
   " Gitを便利に使う
   " :Gstatus, Gdiff等
   NeoBundle 'tpope/vim-fugitive'
+  NeoBundleLazy 'gregsexton/gitv', {'depends':['tpope/vim-fugitive'],
+              \ 'autoload':{'commands':'Gitv'}}
 
   " Git差分表示
   NeoBundle 'airblade/vim-gitgutter'
@@ -233,10 +235,10 @@ if Bundled('neobundle.vim')
   NeoBundle 'kana/vim-textobj-entire',
         \ { 'depends' : 'kana/vim-textobj-user' }
   "   関数内 aF iF
-  NeoBundle 'kana/vim-textobj-function',
-        \ { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'thinca/vim-textobj-function-javascript',
-        \ { 'depends' : 'kana/vim-textobj-user' }
+  " NeoBundle 'kana/vim-textobj-function',
+  "       \ { 'depends' : 'kana/vim-textobj-user' }
+  " NeoBundle 'thinca/vim-textobj-function-javascript',
+  "       \ { 'depends' : 'kana/vim-textobj-user' }
   "   カーソル位置と同じインデント aI iI
   NeoBundle 'kana/vim-textobj-indent',
         \ { 'depends' : 'kana/vim-textobj-user' }
@@ -365,6 +367,8 @@ end
 set backspace=start,eol,indent
 " 構文毎に文字色を変化させる
 syntax on
+
+set ambiwidth=double
 """"""""""""""""""""""""""""""
 
 let &termencoding = &encoding
@@ -495,33 +499,35 @@ if Bundled('unite.vim')
         \                            ⌘ [espacio]g',
         \}
   let g:unite_source_menu_menus.git.command_candidates = [
-        \['▷ tig                                                        ⌘ ,gt',
-        \'normal ,gt'],
-        \['▷ git status       (Fugitive)                                ⌘ ,gs',
+        \['> git viewer             (gitv)                              ⌘ ,gv',
+        \'normal ,tv'],
+        \['> git viewer - buffer    (gitv)                              ⌘ ,gV',
+        \'normal ,tV'],
+        \['> git status       (Fugitive)                                ⌘ ,gs',
         \'Gstatus'],
-        \['▷ git diff         (Fugitive)                                ⌘ ,gd',
+        \['> git diff         (Fugitive)                                ⌘ ,gd',
         \'Gdiff'],
-        \['▷ git commit       (Fugitive)                                ⌘ ,gc',
+        \['> git commit       (Fugitive)                                ⌘ ,gc',
         \'Gcommit'],
-        \['▷ git log          (Fugitive)                                ⌘ ,gl',
+        \['> git log          (Fugitive)                                ⌘ ,gl',
         \'exe "silent Glog | Unite quickfix"'],
-        \['▷ git blame        (Fugitive)                                ⌘ ,gb',
+        \['> git blame        (Fugitive)                                ⌘ ,gb',
         \'Gblame'],
-        \['▷ git stage        (Fugitive)                                ⌘ ,gw',
+        \['> git stage        (Fugitive)                                ⌘ ,gw',
         \'Gwrite'],
-        \['▷ git checkout     (Fugitive)                                ⌘ ,go',
+        \['> git checkout     (Fugitive)                                ⌘ ,go',
         \'Gread'],
-        \['▷ git rm           (Fugitive)                                ⌘ ,gr',
+        \['> git rm           (Fugitive)                                ⌘ ,gr',
         \'Gremove'],
-        \['▷ git mv           (Fugitive)                                ⌘ ,gm',
+        \['> git mv           (Fugitive)                                ⌘ ,gm',
         \'exe "Gmove " input("destino: ")'],
-        \['▷ git push         (Fugitive, salida por buffer)             ⌘ ,gp',
+        \['> git push         (Fugitive, salida por buffer)             ⌘ ,gp',
         \'Git! push'],
-        \['▷ git pull         (Fugitive, salida por buffer)             ⌘ ,gP',
+        \['> git pull         (Fugitive, salida por buffer)             ⌘ ,gP',
         \'Git! pull'],
-        \['▷ git prompt       (Fugitive, salida por buffer)             ⌘ ,gi',
+        \['> git prompt       (Fugitive, salida por buffer)             ⌘ ,gi',
         \'exe "Git! " input("comando git: ")'],
-        \['▷ git cd           (Fugitive)',
+        \['> git cd           (Fugitive)',
         \'Gcd'],
         \]
   nnoremap <silent> [unite]g       :<C-u>Unite -silent -start-insert menu:git<CR>
@@ -810,13 +816,6 @@ endif
 "---------------------------------------------------------------------------
 "" for textobj plugins {{{2
 if Bundled('kana/vim-textobj-user')
-  " if (Bundled('kana/vim-textobj-function') && Bundled('thinca/vim-textobj-between'))
-  "   omap iF <Plug>(textobj-function-i)
-  "   omap aF <Plug>(textobj-function-a)
-  "   vmap iF <Plug>(textobj-function-i)
-  "   vmap aF <Plug>(textobj-function-a)
-  " endif
-
   if (Bundled('kana/vim-textobj-jabraces') && Bundled('osyo-manga/vim-textobj-multitextobj'))
     let g:textobj_multitextobj_textobjects_i = [
         \ "\<Plug>(textobj-multiblock-i)",
@@ -915,6 +914,20 @@ endif
 ""{{{
 if Bundled('vim-markdown')
   let g:vim_markdown_folding_disabled=1
+endif
+"}}}
+
+"------------------------------------
+"" gregsexton/gitv
+"------------------------------------
+""{{{
+if Bundled('gitv')
+  let g:Gitv_OpenHorizontal = 'auto'
+  let g:Gitv_WipeAllOnClose = 1
+  let g:Gitv_DoNotMapCtrlKey = 1
+  nnoremap <silent> <leader>tv :Gitv --all<CR>
+  nnoremap <silent> <leader>tV :Gitv! --all<CR>
+  vnoremap <silent> <leader>tV :Gitv! --all<CR>
 endif
 "}}}
 
