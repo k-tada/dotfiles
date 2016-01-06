@@ -365,10 +365,15 @@ else
 end
 " 挿入モードでのバックスペースを有効化
 set backspace=start,eol,indent
+" 大文字小文字を区別せずに検索する
+set ignorecase
 " 構文毎に文字色を変化させる
 syntax on
 
 set ambiwidth=double
+
+colorscheme hybrid
+
 """"""""""""""""""""""""""""""
 
 let &termencoding = &encoding
@@ -470,8 +475,8 @@ if Bundled('unite.vim')
   nnoremap <silent> [unite]s       :<C-u>Unite source<CR>
   nnoremap <silent> [unite]f       :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
   nnoremap <silent> [unite]g       :<C-u>Unite grep<CR>
-  nnoremap <silent> ,g             :<C-u>Unite grep -buffer-name=search-buffer<CR>
-  nnoremap <silent> ,cg            :<C-u>Unite grep -buffer-name=search-buffer<CR><C-R><C-W>
+  nnoremap <silent> ,g             :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+  nnoremap <silent> ,cg            :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
   nnoremap <silent> ,r             :<C-u>UniteResume search-buffer<CR>
   nnoremap <silent> [unite]h       :<C-u>Unite help<CR>
   nnoremap <silent> [unite];       :<C-u>Unite history/command<CR>
