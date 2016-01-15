@@ -473,10 +473,11 @@ if Bundled('unite.vim')
   nnoremap <silent> [unite]d       :<C-u>Unite directory_mru<CR>
   nnoremap <silent> [unite]k       :<C-u>Unite bookmark<CR>
   nnoremap <silent> [unite]s       :<C-u>Unite source<CR>
+  " nnoremap <silent> [unite]s       :<C-u>Unite -buffer-name=search line/fast -start-insert -no-quit<CR>
   nnoremap <silent> [unite]f       :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
   nnoremap <silent> [unite]g       :<C-u>Unite grep<CR>
   nnoremap <silent> ,g             :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-  nnoremap <silent> ,cg            :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+  nnoremap <silent> ,cg            :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
   nnoremap <silent> ,r             :<C-u>UniteResume search-buffer<CR>
   nnoremap <silent> [unite]h       :<C-u>Unite help<CR>
   nnoremap <silent> [unite];       :<C-u>Unite history/command<CR>
@@ -574,7 +575,7 @@ if has('unix')
     let g:lightline = {
           \ 'colorscheme': 'landscape',
           \ 'component': {
-          \   'readonly': '%{&readonly?"⭤":""}',
+          \   'readonly': '%{&readonly?"\ue0a2":""}',
           \ },
           \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2"},
           \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3"}
@@ -910,6 +911,15 @@ if Bundled('vim-rails')
   nnoremap <buffer><expr><C-H>se    ':e '.b:rails_root.'/db/seeds.rb<CR>'
   nnoremap <buffer><C-H>ra          :<C-U>Unite rails/rake<CR>
   nnoremap <buffer><C-H>h           :<C-U>Unite rails/heroku<CR>
+endif
+"}}}
+
+"------------------------------------
+"" airblade/vim-gitgutter
+"------------------------------------
+""{{{
+if Bundled('vim-gitgutter')
+  let g:gitgutter_max_signs=1000
 endif
 "}}}
 

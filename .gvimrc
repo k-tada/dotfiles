@@ -13,10 +13,11 @@ set visualbell t_vb=
 set nowrapscan
 set columns=100
 set lines=48
+set guifont=MyricaMForPowerline:h12
 
 "------
 " Color Scheme
 "------
-colorscheme desert
+colorscheme hybrid
 syntax on
 
