@@ -344,6 +344,7 @@ set shiftwidth=2
 set smarttab
 " カーソルを行頭、行末で止まらないようにする
 set whichwrap=b,s,h,l,<,>,[,]
+" クリップボード連携
 set clipboard+=unnamed
 " スワップファイルは使わない
 set noswapfile
@@ -466,7 +467,7 @@ if Bundled('unite.vim')
   nnoremap <silent> [unite]c       :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
   nnoremap <silent> [unite]b       :<C-u>Unite buffer<CR>
   " nnoremap <silent> [unite]r       :<C-u>Unite register<CR>
-  nnoremap <silent> [unite]o       :<C-u>Unite outline<CR>
+  nnoremap <silent> [unite]o       :<C-u>Unite -direction=botright -vertical outline<CR>
   nnoremap <silent> [unite]u       :<C-u>Unite file_rec/async<CR>
   nnoremap <silent> [unite]<Space> :<C-u>Unite file_rec/async<CR>
   " nnoremap <Space><Space>          :<C-u>Unite file_rec/async<CR>
