@@ -412,6 +412,9 @@ vnoremap <silent> p "0p
 " 新規タブ
 nnoremap <silent> gn :<C-u>tabnew<CR>
 
+" タブ閉じる
+nnoremap <silent> gC :tabc<CR>
+
 " MacVim用折り返し位置設定
 autocmd FileType text setlocal textwidth=0
 
