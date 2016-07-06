@@ -87,6 +87,8 @@ if Bundled('neobundle.vim')
 
   NeoBundle 'junegunn/fzf', { 'dir': '~/.fzf' }
 
+  NeoBundle 'thinca/vim-visualstar'
+
   " テキストオブジェクトで置換
   NeoBundle 'kana/vim-operator-replace.git'
   NeoBundle 'kana/vim-operator-user.git'
@@ -967,4 +969,7 @@ function! s:vimrc_local(loc)
     source `=i`
   endfor
 endfunction
+
+" for Riot js
+au BufRead,BufNewFile *.tag :set filetype=html
 
