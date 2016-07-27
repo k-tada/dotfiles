@@ -580,12 +580,52 @@ nmap - :Switch<CR>
 if has('unix')
     let g:lightline = {
           \ 'colorscheme': 'landscape',
+          \ 'active': {
+          \   'left': [ ['mode', 'paste'], ['filename', 'fugitive'] ],
+          \   'right': [ ['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype'] ]
+          \ },
           \ 'component': {
           \   'readonly': '%{&readonly?"\ue0a2":""}',
           \ },
           \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2"},
-          \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3"}
+          \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3"},
+          \ 'component_function': {
+          \   'fugitive': 'MyFugitive',
+          \   'filename': 'MyFileName',
+          \   'fileformat': 'MyFileFormat',
+          \   'fileencoding': 'MyFileEncoding',
+          \   'filetype': 'MyFileType'
           \ }
+          \ }
+    function! MyFugitive()
+      try
+        if &ft !~? 'vimfiler\|gundo\|nerdtree' && exists('*fugitive#head') && strlen(fugitive#head())
+          return "\ue0a0" . ' ' . fugitive#head()
+        endif
+      catch
+      endtry
+      return ''
+    endfunction
+
+    function! MyModified()
+      return &ft =~ 'help\|vimfiler\|gundo\|nerdtree' ? '' : &modified ? '+' : &modifiable ? '' : "\ue0a2"
+    endfunction
+
+    function! MyFileName()
+      return &ft =~ 'nerdtree' ? '-' : expand('%:t') . ' ' . MyModified()
+    endfunction
+
+    function! MyFileFormat()
+      return &ft =~ 'nerdtree' ? '' : &fileformat
+    endfunction
+
+    function! MyFileEncoding()
+      return &ft =~ 'nerdtree' ? '' : ( strlen( &fenc ) ? &fenc : &enc )
+    endfunction
+
+    function! MyFileType()
+      return &ft =~ 'nerdtree' ? '' : ( strlen( $filetype ) ? &filetype : 'no ft' )
+    endfunction
 else
     let g:lightline = {
           \ 'colorscheme': 'landscape',
@@ -972,4 +1012,3 @@ endfunction
 
 " for Riot js
 au BufRead,BufNewFile *.tag :set filetype=html
-
