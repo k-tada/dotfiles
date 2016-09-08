@@ -175,6 +175,9 @@ if Bundled('neobundle.vim')
 
   " Rails + Unite
   NeoBundle 'basyura/unite-rails'
+
+  " Rails DB
+  NeoBundle 'vim-scripts/dbext.vim'
   " }}}
 
   " *検索拡張
@@ -599,7 +602,7 @@ if has('unix')
           \ }
     function! MyFugitive()
       try
-        if &ft !~? 'vimfiler\|gundo\|nerdtree' && exists('*fugitive#head') && strlen(fugitive#head())
+        if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
           return "\ue0a0" . ' ' . fugitive#head()
         endif
       catch
@@ -795,6 +798,10 @@ if Bundled('vim-submode')
   call submode#map('windowmove', 'n', '', 'w', '<C-w>w')
   call submode#map('windowmove', 'n', '', 'W', '<C-w>W')
 
+  " exchange window
+  call submode#enter_with('windowex', 'n', '', '<Space>we', '<C-w>x')
+  call submode#map('windowex', 'n', '', 'e', '<C-w>x')
+
   " resize window
   call submode#enter_with('windowresize', 'n', '', '<Space>wh', '<C-w><C-<>')
   call submode#enter_with('windowresize', 'n', '', '<Space>wl', '<C-w><C->>')
@@ -935,6 +942,7 @@ if Bundled('vim-rails')
   nnoremap <buffer><Space>c :Rcontroller<Space>
   nnoremap <buffer><Space>v :Rview<Space>
   nnoremap <buffer><Space>p :Rpreview<CR>
+  nnoremap ,rg      :Rgenerate
 endif
 "}}}
 
