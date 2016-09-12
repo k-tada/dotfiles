@@ -644,7 +644,6 @@ if has('unix')
     augroup END
 
     function! s:syntastic()
-      echo 'hoge'
       SyntasticCheck
       call lightline#update()
     endfunction
