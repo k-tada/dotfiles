@@ -152,7 +152,8 @@ if Bundled('neobundle.vim')
   NeoBundle "honza/vim-snippets"
 
   " File Syntax Checker
-  " NeoBundle 'scrooloose/syntastic'
+  NeoBundle 'scrooloose/syntastic'
+  NeoBundle 'mtscout6/syntastic-local-eslint.vim'
 
   " Gistクライアント
   " :Gistaで起動
@@ -585,7 +586,7 @@ if has('unix')
           \ 'colorscheme': 'landscape',
           \ 'active': {
           \   'left': [ ['mode', 'paste'], ['filename', 'fugitive'] ],
-          \   'right': [ ['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype'] ]
+          \   'right': [ ['syntastic', 'lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype'] ]
           \ },
           \ 'component': {
           \   'readonly': '%{&readonly?"\ue0a2":""}',
@@ -598,6 +599,12 @@ if has('unix')
           \   'fileformat': 'MyFileFormat',
           \   'fileencoding': 'MyFileEncoding',
           \   'filetype': 'MyFileType'
+          \ },
+          \ 'component_expand': {
+          \   'syntastic': 'SyntasticStatuslineFlag',
+          \ },
+          \ 'component_type': {
+          \   'syntastic': 'error',
           \ }
           \ }
     function! MyFugitive()
@@ -628,6 +635,18 @@ if has('unix')
 
     function! MyFileType()
       return &ft =~ 'nerdtree' ? '' : ( strlen( $filetype ) ? &filetype : 'no ft' )
+    endfunction
+
+    let g:syntastic_mode_map = { 'mode': 'passive' }
+    augroup AutoSyntastic
+      autocmd!
+      autocmd BufWritePost *.js call s:syntastic()
+    augroup END
+
+    function! s:syntastic()
+      echo 'hoge'
+      SyntasticCheck
+      call lightline#update()
     endfunction
 else
     let g:lightline = {
@@ -973,7 +992,7 @@ endif
 "------------------------------------
 ""{{{
 if Bundled('vim-gitgutter')
-  let g:gitgutter_max_signs=1000
+  let g:gitgutter_max_signs=5000
 endif
 "}}}
 
@@ -997,6 +1016,21 @@ if Bundled('gitv')
   nnoremap <silent> <leader>tv :Gitv --all<CR>
   nnoremap <silent> <leader>tV :Gitv! --all<CR>
   vnoremap <silent> <leader>tV :Gitv! --all<CR>
+endif
+"}}}
+
+"------------------------------------
+"" scrooloose/syntastic
+"------------------------------------
+""{{{
+if Bundled('syntastic')
+  let g:syntastic_javascript_checkers=['eslint']
+
+  " Syntastic設定
+  " エラー行に sign を表示
+  let g:syntastic_enable_signs = 1
+  " location list を常に表示
+  let g:syntastic_auto_loc_list = 2
 endif
 "}}}
 
