@@ -421,6 +421,9 @@ nnoremap <silent> gn :<C-u>tabnew<CR>
 " タブ閉じる
 nnoremap <silent> gC :tabc<CR>
 
+" 挿入モードから抜けた時に自動でNoPaste
+autocmd InsertLeave * set nopaste
+
 " MacVim用折り返し位置設定
 autocmd FileType text setlocal textwidth=0
 
@@ -1032,6 +1035,22 @@ if Bundled('syntastic')
   let g:syntastic_auto_loc_list = 2
 endif
 "}}}
+
+"------------------------------------
+" jq
+"------------------------------------
+"{{{
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+  if 0 == a:0
+    let l:arg = "."
+  else
+    let l:arg = a:1
+  endif
+  execute "%! jq \"" . l:arg . "\""
+endfunction
+"}}}
+
 
 "---------------------------------------------------------------------------
 " local設定読み込み
