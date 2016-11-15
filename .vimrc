@@ -231,6 +231,9 @@ if Bundled('neobundle.vim')
   " matchit.vim
   NeoBundle 'tmhedberg/matchit'
 
+  " ペースト時に自動でset pasteしてくれる
+  NeoBundle 'ConradIrwin/vim-bracketed-paste'
+
   "---------------------------------------------------------------------------
   " テキストオブジェクト関連
   ""{{{
@@ -376,6 +379,8 @@ set backspace=start,eol,indent
 set ignorecase
 " 構文毎に文字色を変化させる
 syntax on
+" ESC2回でハイライト切り替え
+nnoremap <silent><ESC><ESC> :<C-u>set hlsearch!<CR>
 
 set ambiwidth=double
 
@@ -612,7 +617,7 @@ if has('unix')
           \ }
     function! MyFugitive()
       try
-        if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
+        if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head()) && winwidth(0) > 100
           return "\ue0a0" . ' ' . fugitive#head()
         endif
       catch
@@ -629,15 +634,15 @@ if has('unix')
     endfunction
 
     function! MyFileFormat()
-      return &ft =~ 'nerdtree' ? '' : &fileformat
+      return &ft =~ 'nerdtree' || winwidth(0) <= 100 ? '' : &fileformat
     endfunction
 
     function! MyFileEncoding()
-      return &ft =~ 'nerdtree' ? '' : ( strlen( &fenc ) ? &fenc : &enc )
+      return &ft =~ 'nerdtree' || winwidth(0) <= 100 ? '' : ( strlen( &fenc ) ? &fenc : &enc )
     endfunction
 
     function! MyFileType()
-      return &ft =~ 'nerdtree' ? '' : ( strlen( $filetype ) ? &filetype : 'no ft' )
+      return &ft =~ 'nerdtree' || winwidth(0) <= 100 ? '' : ( strlen( $filetype ) ? &filetype : 'no ft' )
     endfunction
 
     let g:syntastic_mode_map = { 'mode': 'passive' }
