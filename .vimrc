@@ -96,7 +96,7 @@ if Bundled('neobundle.vim')
   " 検索補助、snake_case<->camelCase置き換え等
   " :S/{pattern} で検索
   " :S/{src}/{dst}/{flag} で置換
-  " cr[scmu] でそれぞれsnake_case, camelCase, MixedCase, UPPER_CASEに置き換え
+  " cr[scmu-. ] でそれぞれsnake_case, camelCase, MixedCase, UPPER_CASE, dash-case, dot.case, space caseに置き換え
   NeoBundle 'tpope/vim-abolish'
 
   " 開いているファイルに関係するファイルを開いてくれる
@@ -291,6 +291,27 @@ if Bundled('neobundle.vim')
   " MarkDown
   NeoBundle 'rcmdnk/vim-markdown'
 
+  " JSX
+  NeoBundle 'pangloss/vim-javascript'
+  NeoBundle 'MaxMEllon/vim-jsx-pretty'
+  NeoBundle 'othree/javascript-libraries-syntax.vim'
+  NeoBundle 'othree/es.next.syntax.vim'
+
+  " Colorizer
+  NeoBundle 'lilydjwg/colorizer'
+
+  " Color Picker
+  NeoBundle 'KabbAmine/vCoolor.vim'
+
+  "}}}
+
+  "---------------------------------------------------------------------------
+  " カラースキーム
+  ""{{{
+
+  " tender
+  NeoBundle 'jacoborus/tender.vim'
+
   "}}}
 
   " If there are uninstalled bundles found on startup,
@@ -478,6 +499,10 @@ if Bundled('unite.vim')
   let g:unite_enable_smart_case = 1
 
   let g:unite_source_menu_menus = {}
+
+  call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', 'node_modules')
+  let g:unite_source_rec_max_cache_files = 5000
+
   nnoremap [unite]    <Nop>
   nmap     <Space>u [unite]
 
@@ -487,6 +512,7 @@ if Bundled('unite.vim')
   nnoremap <silent> [unite]o       :<C-u>Unite -direction=botright -vertical outline<CR>
   nnoremap <silent> [unite]u       :<C-u>Unite file_rec/async<CR>
   nnoremap <silent> [unite]<Space> :<C-u>Unite file_rec/async<CR>
+  nnoremap <silent> [unite]l       :<C-u>Unite file_rec source<CR>
   " nnoremap <Space><Space>          :<C-u>Unite file_rec/async<CR>
   nnoremap <silent> [unite]d       :<C-u>Unite directory_mru<CR>
   nnoremap <silent> [unite]k       :<C-u>Unite bookmark<CR>
@@ -865,6 +891,7 @@ endif
 "" for scrooloose/nerdtree {{{2
 if Bundled('nerdtree')
   nmap <silent> <Space>ne      :NERDTreeToggle<CR>
+  nmap <silent> <Space>nc      :NERDTreeFind<CR>
   " 隠しファイルを表示
   let NERDTreeShowHidden = 1
   " 表示幅
@@ -962,12 +989,12 @@ if Bundled('vim-rails')
   " let g:rails_url='http://localhost:3000'
   " let g:rails_ctags_arguments='--languages=-javascript'
   " let g:rails_ctags_arguments = ''
-  nnoremap <buffer><Space>r :R<CR>
-  nnoremap <buffer><Space>a :A<CR>
-  nnoremap <buffer><Space>m :Rmodel<Space>
-  nnoremap <buffer><Space>c :Rcontroller<Space>
-  nnoremap <buffer><Space>v :Rview<Space>
-  nnoremap <buffer><Space>p :Rpreview<CR>
+  nnoremap <buffer><Space>rr :R<CR>
+  nnoremap <buffer><Space>ra :A<CR>
+  nnoremap <buffer><Space>rm :Rmodel<Space>
+  nnoremap <buffer><Space>rc :Rcontroller<Space>
+  nnoremap <buffer><Space>rv :Rview<Space>
+  nnoremap <buffer><Space>rp :Rpreview<CR>
   nnoremap ,rg      :Rgenerate
 endif
 "}}}
@@ -1054,6 +1081,22 @@ function! s:Jq(...)
   endif
   execute "%! jq \"" . l:arg . "\""
 endfunction
+"}}}
+
+"------------------------------------
+" KabbAmine/vCoolor.vim
+"------------------------------------
+"{{{
+if Bundled('vCoolor.vim')
+  let g:vcoolor_disable_mappings = 1
+  let g:vcoolor_map = '<leader>c'
+  nnoremap [vCoolor]    <Nop>
+  nmap     <Space>c [vCoolor]
+  nnoremap <silent> [vCoolor]c       :VCoolor<CR>
+  nnoremap <silent> [vCoolor]r       :VCoolIns r<CR>
+  nnoremap <silent> [vCoolor]h       :VCoolIns h<CR>
+  nnoremap <silent> [vCoolor]a      :VCoolIns ra<CR>
+endif
 "}}}
 
 
