@@ -1,0 +1,1 @@
+/Users/tada/.config/fisherman/bd/functions/bd.fish

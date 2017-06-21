@@ -1,0 +1,11 @@
+[General]
+  snippetfile = "/Users/tada/.config/pet/snippet.toml"
+  editor = "/usr/local/bin/vim"
+  column = 40
+  selectcmd = "peco"
+
+[Gist]
+  file_name = "pet-snippet.toml"
+  access_token = ""
+  gist_id = ""
+  public = false

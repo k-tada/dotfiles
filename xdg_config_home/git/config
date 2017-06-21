@@ -1,0 +1,41 @@
+[core]
+  editor = /usr/local/bin/vim
+  pager = diff-so-fancy | less --tabs=4 -RFX
+  hooksPath = ~/.config/git/hooks
+[diff]
+  indentHeuristic = true
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path =
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[alias]
+  push = push -u
+  w = worktree
+  nw = "!f(){ git worktree add ./$1 $1;};f"
+  wa = "!f(){ git worktree add ./$1 $1;};f"
+  nwm = "!f(){ git worktree add -b $1 ./$1 master;};f"
+  wam = "!f(){ git worktree add -b $1 ./$1 master;};f"
+  wrm = "!f(){ rm -rf $1 && git worktree prune;};f"
+  wrmb = "!f(){ rm -rf $1 && git worktree prune && git branch -D $1;};f"
+  diff = diff --color | diff-so-fancy
+  graph = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
+  # gr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
+  gr = log --decorate --graph --name-status --oneline
+  diffs = diff --staged
+  difs = diff --staged
+  blist = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:iso8601)%09%(refname)' refs/heads
+  ps = !git push origin `git rev-parse --abbrev-ref HEAD`
+  pl = !git pull origin `git rev-parse --abbrev-ref HEAD`
+
+[user]
+  name = k.tada
+  email = white.rv0925@gmail.com
+[push]
+  default = simple
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

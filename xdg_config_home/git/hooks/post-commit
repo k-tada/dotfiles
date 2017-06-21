@@ -1,0 +1,20 @@
+#!/bin/sh
+# husky
+cd .
+[ -f package.json ] && cat package.json | grep -q '"postcommit"\s*:'
+[ $? -ne 0 ] && exit 0
+export NVM_DIR="/Users/tada/.nvm"
+BREW_NVM_DIR="/usr/local/opt/nvm"
+[ -s "$BREW_NVM_DIR/nvm.sh" ] && . "$BREW_NVM_DIR/nvm.sh"
+export PATH=$PATH:/usr/local/bin:/usr/local
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+command -v nvm >/dev/null 2>&1 && [ -f .nvmrc ] && nvm use
+command -v npm >/dev/null 2>&1 || { echo >&2 "husky - can't find npm in PATH. Skipping postcommit script in package.json"; exit 0; }
+export GIT_PARAMS="$*"
+npm run postcommit
+if [ $? -ne 0 ]; then
+  echo
+  echo "husky - post-commit hook failed (add --no-verify to bypass)"
+  echo
+  exit 1
+fi

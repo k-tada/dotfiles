@@ -1,0 +1,1 @@
+/Users/tada/.config/fisherman/await/functions/await.fish

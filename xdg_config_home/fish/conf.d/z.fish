@@ -1,0 +1,1 @@
+/Users/tada/.config/fisherman/z/conf.d/z.fish

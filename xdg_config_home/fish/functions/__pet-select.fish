@@ -1,0 +1,1 @@
+/Users/tada/.config/fisherman/pet/functions/__pet-select.fish

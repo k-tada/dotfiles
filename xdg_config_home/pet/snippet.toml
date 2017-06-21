@@ -1,0 +1,39 @@
+[[snippets]]
+  description = "Local MySQL Server Start"
+  command = "sudo mysql.server start"
+  output = ""
+
+[[snippets]]
+  description = "webpack + babel installation with yarn"
+  command = "yarn add -D webpack babel-core babel-loader babel-register babel-preset-react babel-preset-es2015 babel-preset-stage-0"
+  output = ""
+
+[[snippets]]
+  description = "Webpack + Babel installation with npm"
+  command = "npm i -D webpack babel-core babel-loader babel-register babel-preset-react babel-preset-es2015 babel-preset-stage-0"
+  output = ""
+
+[[snippets]]
+  description = "git graph like GUI"
+  command = "git log --graph --decorate --name-status --oneline"
+  output = ""
+
+[[snippets]]
+  description = "Edit Fish Config"
+  command = "vim ~/.config/fish/config.fish"
+  output = ""
+
+[[snippets]]
+  description = "start redis server"
+  command = "redis-server &"
+  output = ""
+
+[[snippets]]
+  description = "View using port"
+  command = "lsof -i"
+  output = ""
+
+[[snippets]]
+  description = "connect to mysql in docker"
+  command = "mysql -h localhost -P 3306 --protocol=tcp -u root -p"
+  output = ""

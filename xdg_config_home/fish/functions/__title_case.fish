@@ -1,0 +1,1 @@
+/Users/tada/.config/fisherman/breeze/functions/__title_case.fish

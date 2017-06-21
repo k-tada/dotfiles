@@ -1,0 +1,113 @@
+# Deoplete
+[[plugins]] # 補完
+repo = 'Shougo/deoplete.nvim'
+if = 'has("python3")'
+depends = 'context_filetype.vim'
+on_event = 'InsertEnter'
+hook_source = '''
+  let g:deoplete#enable_at_startup = 1
+  " let g:deoplete#enable_ignore_case = 1
+  " let g:deoplete#enable_smart_case = 1
+  " let g:deoplete#auto_complete_delay = 0
+  set completeopt=menuone
+
+  " <tab>: completion.
+  imap <silent><expr> <tab> pumvisible() ? "\<c-n>" : <sid>check_back_space() ? "\<tab>" : deoplete#mappings#manual_complete()
+  function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction
+
+  " <s-tab>: completion back.
+  inoremap <expr><s-tab>  pumvisible() ? "\<c-p>" : "\<c-h>"
+
+  " inoremap <silent> <CR> <C-r>=<SID>cr_close_popup()<CR>
+  " function! s:cr_close_popup() abort
+  "   return deoplete#close_popup() . "\<CR>"
+  " endfunction
+  let g:deoplete#sources = {}
+  let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+  let g:deoplete#omni_patterns = {}
+  let g:deoplete#omni_patterns.javascript = '[^. *\t]\.\w*'
+  let g:deoplete#omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  let g:deoplete#omni#functions = {}
+  let g:deoplete#omni#functions.javascript = [
+        \ 'tern#Complete',
+        \ 'jspc#omni'
+        \]
+'''
+
+[[plugins]]
+repo = 'SirVer/ultisnips'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+
+[[plugins]]
+repo = 'vim-scripts/jspc.vim'
+depends = 'deoplete.nvim'
+
+[[plugins]]
+repo = 'marijnh/tern_for_vim'
+build = 'npm install'
+
+[[plugins]]
+repo = 'carlitux/deoplete-ternjs'
+build = 'npm install'
+hook_add = '''
+  let g:tern#command = ['tern']
+  let g:tern#arguments = ['--persistent']
+'''
+
+# Denite
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+if = 'has("python3")'
+hook_add = '''
+  nnoremap [unite]    <Nop>
+  nmap     <Space>u [unite]
+
+  nnoremap <silent> [unite]c       :<C-u>Denite file_mru<CR>
+  nnoremap <silent> [unite]u       :<C-u>Denite file_rec<CR>
+  nnoremap <silent> [unite]<Space> :<C-u>Denite file_rec<CR>
+  nnoremap <silent> [unite]g       :<C-u>Denite grep -buffer-name=search-buffer-denite<CR>
+  nnoremap <silent> ,g             :<C-u>Denite grep -buffer-name=search-buffer-denite -direction=topleft<CR>
+  nnoremap <silent> ,cg            :<C-u>DeniteCursorWord grep -buffer-name=search-buffer-denite<CR>
+  nnoremap <silent> ,r             :<C-u>Denite -resume -buffer-name=search-buffer-denite<CR>
+  nnoremap <silent> [unite]r       :<C-u>Denite -resume<CR>
+  nnoremap <silent> [unite]h       :<C-u>Unite help<CR>
+'''
+hook_post_source = '''
+  call denite#custom#source('file_rec', 'matchers', ['matcher_ignore_globs', 'matcher_regexp'])
+  call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+        \ [
+        \ '.git/', 'node_modules/',
+        \ 'img/', 'images/', '*.tmp', '*.min.*', 'fonts/'
+        \])
+  call denite#custom#source('file_rec', 'sorters', ['sorter_sublime'])
+  if executable('pt')
+    call denite#custom#var('file_rec', 'command', ['pt', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', ''])
+  endif
+  if executable('pt')
+    call denite#custom#var('grep', 'command', ['pt'])
+    call denite#custom#var('grep', 'default_opts', ['--nogroup', '--nocolor', '--smart-case'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'pattern_opt', [])
+    call denite#custom#var('grep', 'separator', ['--'])
+    call denite#custom#var('grep', 'final_opts', [])
+  elseif executable('rg')
+    call denite#custom#var('grep', 'command', ['rg'])
+    call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+    call denite#custom#var('grep', 'separator', ['--'])
+    call denite#custom#var('grep', 'final_opts', [])
+  endif
+'''
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+depends = 'denite.nvim'
+on_path = '.*'
+
+

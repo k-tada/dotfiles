@@ -1,0 +1,1 @@
+/Users/tada/.config/fisherman/pet/functions/prev.fish

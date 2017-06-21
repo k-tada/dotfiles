@@ -1,0 +1,1 @@
+/Users/tada/.config/fisherman/breeze/functions/gcmsg.fish

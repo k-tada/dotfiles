@@ -1,0 +1,1 @@
+/Users/tada/.config/fisherman/get/functions/get.fish

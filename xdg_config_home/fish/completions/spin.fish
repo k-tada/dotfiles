@@ -1,0 +1,1 @@
+/Users/tada/.config/fisherman/spin/completions/spin.fish

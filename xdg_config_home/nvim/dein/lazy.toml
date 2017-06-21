@@ -1,0 +1,71 @@
+# Langs
+[[plugins]]
+repo = 'derekwyatt/vim-scala'
+on_ft = ['scala']
+
+[[plugins]]
+repo = 'elixir-lang/vim-elixir'
+on_ft = ['ex', 'exs']
+
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = ['ts', 'typescript']
+
+[[plugins]]
+repo = 'rcmdnk/vim-markdown'
+on_ft = ['md']
+
+[[plugins]]
+repo = 'othree/yajs.vim'
+on_ft = ['js', 'jsx']
+
+[[plugins]]
+repo = 'rschmukler/pangloss-vim-indent'
+on_ft = ['js', 'jsx']
+
+[[plugins]]
+repo = 'othree/javascript-libraries-syntax.vim'
+on_ft = ['js', 'jsx']
+
+[[plugins]]
+repo = 'othree/es.next.syntax.vim'
+on_ft = ['js', 'jsx']
+
+[[plugins]]
+repo = 'ElmCast/elm-vim'
+on_ft = ['elm']
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+on_ft = ['ruby']
+
+[[plugins]]
+repo = 'osyo-manga/vim-monster'
+on_ft = ['ruby']
+depends = 'deoplete.nvim'
+
+[[plugins]]
+repo = '5t111111/denite-rails'
+on_ft = ['ruby']
+depends = 'denite.nvim'
+hook_add = '''
+  nnoremap [urails] <Nop>
+  nmap     <Space>r [urails]
+
+  nnoremap [urails]r :Denite<Space>rails:
+  nnoremap <silent> [urails]m :<C-u>Denite<Space>rails:model<CR>
+  nnoremap <silent> [urails]c :<C-u>Denite<Space>rails:controller<CR>
+  nnoremap <silent> [urails]v :<C-u>Denite<Space>rails:view<CR>
+'''
+
+[[plugins]]
+repo = 'othree/csscomplete.vim'
+on_ft = ['css']
+hook_add = '''
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+'''
+

@@ -1,0 +1,1 @@
+/Users/tada/.config/fisherman/getopts/getopts.fish
