@@ -44,7 +44,7 @@ repo = 'SirVer/ultisnips'
 repo = 'honza/vim-snippets'
 
 [[plugins]]
-repo = 'vim-scripts/jspc.vim'
+repo = 'othree/jspc.vim'
 depends = 'deoplete.nvim'
 
 [[plugins]]
@@ -72,7 +72,7 @@ hook_add = '''
   nnoremap <silent> [unite]<Space> :<C-u>Denite file_rec<CR>
   nnoremap <silent> [unite]g       :<C-u>Denite grep -buffer-name=search-buffer-denite<CR>
   nnoremap <silent> ,g             :<C-u>Denite grep -buffer-name=search-buffer-denite -direction=topleft<CR>
-  nnoremap <silent> ,cg            :<C-u>DeniteCursorWord grep -buffer-name=search-buffer-denite<CR>
+  nnoremap <silent> ,cg            :<C-u>DeniteCursorWord grep -buffer-name=search-buffer-denite -direction=topleft<CR>
   nnoremap <silent> ,r             :<C-u>Denite -resume -buffer-name=search-buffer-denite<CR>
   nnoremap <silent> [unite]r       :<C-u>Denite -resume<CR>
   nnoremap <silent> [unite]h       :<C-u>Unite help<CR>

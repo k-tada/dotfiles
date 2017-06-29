@@ -189,23 +189,35 @@ nmap - :Switch<CR>
 [[plugins]]
 repo = 'scrooloose/syntastic'
 hook_add = '''
-  let g:syntastic_javascript_checkers=['eslint']
-
   " Syntastic設定
+  let g:syntastic_mode_map = {
+    \  'mode': 'passive',
+    \  'active_filetypes': ['ruby'],
+    \}
+
   " エラー行に sign を表示
   let g:syntastic_enable_signs = 1
   " location list を常に表示
   let g:syntastic_auto_loc_list = 2
 
+  " let g:syntastic_debug = 3
+
+  let g:syntastic_javascript_checkers=['eslint']
+
+  let g:syntastic_typescript_checkers = ['tslint']
+  let g:syntastic_typescript_tslint_args = "--config ./tslint.json"
+  " let g:syntastic_typescript_tsc_args = "--target ES5"
+  " let g:syntastic_typescript_tsc_fname = ''
+
   " ruby
-  let g:syntastic_mode_map = {
-    \  'mode': 'passive', 'active_filetypes': ['ruby']
-    \}
   let g:syntastic_ruby_checkers = ['rubocop']
 '''
 
 [[plugins]]
 repo = 'mtscout6/syntastic-local-eslint.vim'
+
+[[plugins]]
+repo = 'alessioalex/syntastic-local-tslint.vim'
 
 # Status Line
 [[plugins]]
@@ -266,10 +278,10 @@ hook_add = '''
     return &ft =~ 'nerdtree' || winwidth(0) <= 100 ? '' : ( strlen( &filetype ) ? &filetype : 'no ft' )
   endfunction
 
-  let g:syntastic_mode_map = { 'mode': 'passive' }
   augroup AutoSyntastic
     autocmd!
     autocmd BufWritePost *.js call s:syntastic()
+    autocmd BufWritePost *.ts call s:syntastic()
   augroup END
 
   function! s:syntastic()

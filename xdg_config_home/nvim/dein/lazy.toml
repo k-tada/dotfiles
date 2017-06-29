@@ -9,7 +9,12 @@ on_ft = ['ex', 'exs']
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
-on_ft = ['ts', 'typescript']
+on_ft = ['typescript']
+
+[[plugins]]
+repo = 'clausreinke/typescript-tools.vim'
+on_ft = ['typescript']
+build = 'npm install'
 
 [[plugins]]
 repo = 'rcmdnk/vim-markdown'
