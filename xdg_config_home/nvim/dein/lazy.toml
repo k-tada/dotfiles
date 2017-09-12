@@ -74,3 +74,7 @@ hook_add = '''
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 '''
 
+[[plugins]]
+repo = 'elixir-editors/vim-elixir'
+on_ft = ['elixir']
+
