@@ -2,7 +2,7 @@ let g:cache_home = empty($XDG_CACHE_HOME) ? expand('$HOME/.cache') : $XDG_CACHE_
 let g:config_home = empty($XDG_CONFIG_HOME) ? expand('$HOME/.config/nvim') : $XDG_CONFIG_HOME . '/nvim'
 
 " Python 3 Support
-let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
+let g:python3_host_prog = expand('$HOME') . '/.anyenv/envs/pyenv/shims/python'
 
 " dein {{{
 let s:dein_cache_dir = g:cache_home . '/dein'
