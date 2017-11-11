@@ -174,6 +174,14 @@ autocmd InsertLeave * set nopaste
 " MacVim用折り返し位置設定
 autocmd FileType text setlocal textwidth=0
 
+" FileTypes
+autocmd BufRead,BufNewFile .zaliases set filetype=zsh
+autocmd BufRead,BufNewFile .zprompt  set filetype=zsh
+autocmd BufRead,BufNewFile .zenv     set filetype=zsh
+autocmd BufRead,BufNewFile .zplug    set filetype=zsh
+autocmd BufRead,BufNewFile .zcomp    set filetype=zsh
+autocmd BufRead,BufNewFile .zoptions set filetype=zsh
+
 " 全角スペースを表示
 function! ZenkakuSpace()
   highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
@@ -187,5 +195,6 @@ if has('syntax')
   augroup END
   call ZenkakuSpace()
 endif
+
 
 source $VIMRUNTIME/plugin/matchit.vim
