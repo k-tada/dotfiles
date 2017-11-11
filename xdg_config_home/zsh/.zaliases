@@ -1,0 +1,6 @@
+# aliases
+alias diff="colordiff"
+alias ll="ls -sla"
+alias llt="ls -slat"
+alias vim="/usr/local/bin/nvim"
+

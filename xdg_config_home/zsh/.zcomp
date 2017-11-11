@@ -1,0 +1,38 @@
+### 補完
+autoload -U compinit; compinit -C
+
+### 補完方法毎にグループ化する。
+zstyle ':completion:*' format '%B%F{blue}%d%f%b'
+zstyle ':completion:*' group-name ''
+
+### 補完侯補をメニューから選択する。
+### select=2: 補完候補を一覧から選択する。補完候補が2つ以上なければすぐに補完する。
+zstyle ':completion:*:default' menu select=1
+
+### 補完候補に色を付ける。
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+### 補完候補がなければより曖昧に候補を探す。
+### m:{a-z}={A-Z}: 小文字を大文字に変えたものでも補完する。
+### r:|[._-]=*: 「.」「_」「-」の前にワイルドカード「*」があるものとして補完する。
+### +m:{A-Z}={a-z}: 追加で大文字を小文字に変えてみて補完する
+# zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-z} r:|[-_.]=**'
+
+### 補完候補
+### _oldlist 前回の補完結果を再利用する。
+### _complete: 補完する。
+### _match: globを展開しないで候補の一覧から補完する。
+### _history: ヒストリのコマンドも補完候補とする。
+### _ignored: 補完候補にださないと指定したものも補完候補とする。
+### _approximate: 似ている補完候補も補完候補とする。
+### _prefix: カーソル以降を無視してカーソル位置までで補完する。
+#zstyle ':completion:*' completer _oldlist _complete _match _history _ignored _approximate _prefix
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+
+## 補完候補をキャッシュする。
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/zsh/compcache"
+
+
+
