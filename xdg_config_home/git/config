@@ -26,7 +26,7 @@
   diffs = diff --staged
   difs = diff --staged
   blist = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:iso8601)%09%(refname)' refs/heads
-  ps = !git push origin `git rev-parse --abbrev-ref HEAD`
+  ps = !git push -u origin `git rev-parse --abbrev-ref HEAD`
   pl = !git pull origin `git rev-parse --abbrev-ref HEAD`
 
 [user]

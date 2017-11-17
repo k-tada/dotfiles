@@ -41,5 +41,7 @@ path=(
   $XDG_DATA_HOME/bin
   $path
 )
+
+fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 typeset -gU cdpath fpath mailpath path
 

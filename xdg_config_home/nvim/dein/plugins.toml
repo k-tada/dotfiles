@@ -302,3 +302,6 @@ hook_add = '''
   endfunction
 '''
 
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+

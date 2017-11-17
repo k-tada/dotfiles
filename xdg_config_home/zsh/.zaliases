@@ -4,3 +4,8 @@ alias ll="ls -sla"
 alias llt="ls -slat"
 alias vim="/usr/local/bin/nvim"
 
+# Cd
+alias ".."="cd .."
+alias "..."="cd ../.."
+alias "...."="cd ../../.."
+

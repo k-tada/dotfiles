@@ -6,7 +6,7 @@ source $ZDOTDIR/.zprompt
 source $ZDOTDIR/.zaliases
 source $ZDOTDIR/.zplug
 
-function chpwd() { ls }
+function chpwd() { ls -sla }
 
 # anyenv
 if [ -d $HOME/.anyenv ] ; then
