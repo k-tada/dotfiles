@@ -168,6 +168,9 @@ nnoremap <silent> gn :<C-u>tabnew<CR>
 " タブ閉じる
 nnoremap <silent> gC :tabc<CR>
 
+" jjでesc
+inoremap <silent> jj <ESC>
+
 " 挿入モードから抜けた時に自動でNoPaste
 autocmd InsertLeave * set nopaste
 

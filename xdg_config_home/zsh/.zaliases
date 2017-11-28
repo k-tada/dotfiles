@@ -9,3 +9,6 @@ alias ".."="cd .."
 alias "..."="cd ../.."
 alias "...."="cd ../../.."
 
+# Other
+alias xx="exit"
+
