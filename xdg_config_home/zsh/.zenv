@@ -35,11 +35,16 @@ export PSQL_HISTORY="$XDG_CACHE_HOME/psql/history"
 # MySQL
 export  MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql/history"
 
+# Golang
+export GOPATH="$XDG_CACHE_HOME/go"
+
 # PATHs
 path=(
   /usr/local/{bin,sbin}
   $ANDROID_HOME/{tools,platform-tools}
   $XDG_DATA_HOME/bin
+  $XDG_CACHE_HOME/go/bin
+  $HOME/go/bin
   $path
 )
 

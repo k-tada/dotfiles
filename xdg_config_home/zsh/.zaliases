@@ -3,6 +3,7 @@ alias diff="colordiff"
 alias ll="ls -sla"
 alias llt="ls -slat"
 alias vim="/usr/local/bin/nvim"
+alias dc="docker-compose"
 
 # Cd
 alias ".."="cd .."

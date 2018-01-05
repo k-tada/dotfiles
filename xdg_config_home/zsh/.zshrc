@@ -14,6 +14,10 @@ if [ -d $HOME/.anyenv ] ; then
   eval "$(anyenv init -)"
 fi
 
+# goenv
+export PATH="$HOME/.goenv/bin:$PATH"
+eval "$(goenv init -)"
+
 # fzf
 function select-history() {
   BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
