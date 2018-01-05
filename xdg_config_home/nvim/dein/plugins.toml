@@ -311,3 +311,24 @@ hook_add = '''
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
+[[plugins]]
+repo = 'hotwatermorning/auto-git-diff'
+
+[[plugins]]
+repo = 'prettier/vim-prettier'
+build = 'npm install'
+
+[[plugins]]
+repo = 'terryma/vim-expand-region'
+hook_add = '''
+let g:expand_region_text_objects_html = {
+      \ 'i"' :0,
+      \ 'i<' :0,
+      \ 'it' :1,
+      \ }
+
+" vv...で選択範囲の拡張
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+'''
+

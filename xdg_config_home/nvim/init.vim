@@ -196,5 +196,10 @@ if has('syntax')
   call ZenkakuSpace()
 endif
 
+let mapleader = "\<Space>"
+
+" Delete unused plugins
+" NOTE: if enable this settings, you must do `:call dein#recache_runtimepath()`
+" call map(dein#check_clean(), "delete(v:val, 'rf')")
 
 source $VIMRUNTIME/plugin/matchit.vim
