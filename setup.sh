@@ -1,10 +1,10 @@
-if [ -e .vim/bundle/nerdtree ]; then
-  cp -a ./vim/plugins/diff_menu.vim .vim/bundle/nerdtree/nerdtree_plugin/
-else
-  echo 'run `git submodule init && git submodule update` before run this script'
+cat <<EOM > /etc/zshenv
+setopt no_global_rcs
+if [[ -z "\$XDG_CONFIG_HOME" ]];then
+  export XDG_CONFIG_HOME="$HOME/.config"
 fi
-
-cd ~
-ln -s ~/dotfiles/.vimrc .vimrc
-ln -s ~/dotfiles/.gvimrc .gvimrc
+if [[ -d "\$XDG_CONFIG_HOME/zsh" ]];then
+  export ZDOTDIR="\$XDG_CONFIG_HOME/zsh"
+fi
+EOM
 
