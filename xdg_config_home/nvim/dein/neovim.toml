@@ -67,14 +67,14 @@ hook_add = '''
   nnoremap [unite]    <Nop>
   nmap     <Space>u [unite]
 
-  nnoremap <silent> [unite]c       :<C-u>Denite file_mru<CR>
-  nnoremap <silent> [unite]u       :<C-u>Denite file_rec<CR>
-  nnoremap <silent> [unite]<Space> :<C-u>Denite file_rec<CR>
+  nnoremap <silent> [unite]c       :<C-u>Denite file_mru -direction=topleft<CR>
+  nnoremap <silent> [unite]u       :<C-u>Denite file_rec -direction=topleft<CR>
+  nnoremap <silent> [unite]<Space> :<C-u>Denite file_rec -direction=topleft<CR>
   nnoremap <silent> [unite]g       :<C-u>Denite grep -buffer-name=search-buffer-denite<CR>
   nnoremap <silent> ,g             :<C-u>Denite grep -buffer-name=search-buffer-denite -direction=topleft<CR>
   nnoremap <silent> ,cg            :<C-u>DeniteCursorWord grep -buffer-name=search-buffer-denite -direction=topleft<CR>
   nnoremap <silent> ,r             :<C-u>Denite -resume -buffer-name=search-buffer-denite<CR>
-  nnoremap <silent> [unite]r       :<C-u>Denite -resume<CR>
+  nnoremap <silent> [unite]r       :<C-u>Denite -resume -direction=topleft<CR>
   nnoremap <silent> [unite]h       :<C-u>Unite help<CR>
 '''
 hook_post_source = '''
@@ -88,6 +88,7 @@ hook_post_source = '''
   if executable('pt')
     call denite#custom#var('file_rec', 'command', ['pt', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', ''])
   endif
+  call denite#custom#source('grep', 'sorters', ['sorter_sublime'])
   if executable('pt')
     call denite#custom#var('grep', 'command', ['pt'])
     call denite#custom#var('grep', 'default_opts', ['--nogroup', '--nocolor', '--smart-case', '--hidden'])
