@@ -137,9 +137,6 @@ set noautochdir
 
 set shell=sh
 
-colorscheme lucius
-" colorscheme hybrid
-
 let &termencoding = &encoding
 set encoding=utf-8
 set fileencoding=utf-8

@@ -142,6 +142,9 @@ hook_add = '''
 # Color
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
+hook_add = '''
+" au MyAutoCmd VimEnter * nested colorscheme hybrid
+'''
 
 [[plugins]]
 repo = 'jacoborus/tender.vim'
@@ -154,6 +157,9 @@ repo = 'KabbAmine/vCoolor.vim'
 
 [[plugins]]
 repo = 'jonathanfilip/vim-lucius'
+hook_add = '''
+  au MyAutoCmd VimEnter * nested colorscheme lucius
+'''
 
 # Git
 [[plugins]]
