@@ -2,7 +2,7 @@
 # kubectl
 if [ $commands[kubectl] ]; then
   source <(kubectl completion zsh)
-  source ./functions/zsh-kubectl-prompt/kubectl.zsh
+  source $ZDOTDIR/functions/zsh-kubectl-prompt/kubectl.zsh
 fi
 
 source $ZDOTDIR/.zcomp
