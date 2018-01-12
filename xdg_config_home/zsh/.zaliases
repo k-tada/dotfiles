@@ -13,3 +13,8 @@ alias "...."="cd ../../.."
 # Other
 alias xx="exit"
 
+# Kubernetes
+alias kubectlprod="kubectl --kubeconfig=~/work/proj/minarai/doc/kubernetes-aws/production/config"
+alias kubectlstg="kubectl --kubeconfig=~/work/proj/minarai/doc/kubernetes-aws/staging/config"
+alias kubectlqa="kubectl --kubeconfig=~/work/proj/minarai/doc/kubernetes-aws/qa/config"
+
