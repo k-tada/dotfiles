@@ -1,4 +1,9 @@
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# kubectl
+if [ $commands[kubectl] ]; then
+  source <(kubectl completion zsh)
+  source ./functions/zsh-kubectl-prompt/kubectl.zsh
+fi
 
 source $ZDOTDIR/.zcomp
 source $ZDOTDIR/.zoptions
