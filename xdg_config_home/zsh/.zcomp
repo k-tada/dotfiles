@@ -1,5 +1,5 @@
 ### 補完
-autoload -U compinit; compinit -C
+# autoload -U compinit; compinit -C
 
 ### 補完方法毎にグループ化する。
 zstyle ':completion:*' format '%B%F{blue}%d%f%b'

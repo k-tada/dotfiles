@@ -30,7 +30,7 @@ if [[ -s "$ZPLUG_HOME" ]]; then
 
 
   # Install plugins if there are plugins that have not been installed
-  zplug check || zplug install
+  # zplug check || zplug install
 
   zplug load
 fi
