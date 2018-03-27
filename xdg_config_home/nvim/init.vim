@@ -45,6 +45,11 @@ if dein#load_state(s:dein_cache_dir)
   call dein#save_state()
 endif
 
+" vimprocは先にほしい
+if dein#check_install(['vimproc'])
+  call dein#install(['vimproc'])
+endif
+
 if has('vim_starting') && dein#check_install()
   call dein#install()
 endif

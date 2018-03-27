@@ -73,14 +73,26 @@ repo = 'tpope/vim-endwise'
 on_ft = ['ruby']
 
 [[plugins]]
-repo = 'osyo-manga/vim-monster'
+repo = 'Shougo/deoplete-rct'
 on_ft = ['ruby']
-depends = 'deoplete.nvim'
+
+[[plugins]]
+repo = 'fishbullet/deoplete-ruby'
+on_ft = ['ruby']
+
+[[plugins]]
+repo = 'osyo-manga/vim-monster'
+on_i = 1
+hook_add = '''
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+let g:deoplete#sources#omni#input_patterns = {
+  \ "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+  \}
+'''
 
 [[plugins]]
 repo = '5t111111/denite-rails'
 on_ft = ['ruby']
-depends = 'denite.nvim'
 hook_add = '''
   nnoremap [urails] <Nop>
   nmap     <Space>r [urails]
