@@ -35,6 +35,8 @@ if dein#load_state(s:dein_cache_dir)
 
   let s:toml_dir = g:config_home . '/dein'
 
+  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+
   call dein#load_toml(s:toml_dir . '/plugins.toml', {'lazy': 0})
   if has('nvim')
     call dein#load_toml(s:toml_dir . '/neovim.toml', {'lazy': 1})
@@ -43,11 +45,6 @@ if dein#load_state(s:dein_cache_dir)
 
   call dein#end()
   call dein#save_state()
-endif
-
-" vimprocは先にほしい
-if dein#check_install(['vimproc'])
-  call dein#install(['vimproc'])
 endif
 
 if has('vim_starting') && dein#check_install()
