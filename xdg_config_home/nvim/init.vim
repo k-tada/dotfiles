@@ -187,6 +187,8 @@ autocmd BufRead,BufNewFile .zplug    set filetype=zsh
 autocmd BufRead,BufNewFile .zcomp    set filetype=zsh
 autocmd BufRead,BufNewFile .zoptions set filetype=zsh
 
+autocmd BufRead,BufNewFile *.vue      set filetype=html
+
 " 全角スペースを表示
 function! ZenkakuSpace()
   highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
