@@ -38,6 +38,10 @@ export  MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql/history"
 # Golang
 export GOPATH="$XDG_CACHE_HOME/go"
 
+# for NVIM
+export NVIM_PYTHON_LOG_FILE="/tmp/log"
+export NVIM_PYTHON_LOG_LEVEL="DEBUG"
+
 # PATHs
 path=(
   /usr/local/{bin,sbin}

@@ -35,6 +35,9 @@ hook_source = '''
         \ 'tern#Complete',
         \ 'jspc#omni'
         \]
+  let g:deoplete#omni#functions.css = [
+        \ 'csscomplete#CompleteCSS',
+        \]
 '''
 
 [[plugins]]
@@ -58,6 +61,9 @@ hook_add = '''
   let g:tern#command = ['tern']
   let g:tern#arguments = ['--persistent']
 '''
+
+[[plugins]]
+repo = 'othree/csscomplete.vim'
 
 # Denite
 [[plugins]]
@@ -88,27 +94,17 @@ hook_post_source = '''
   if executable('pt')
     call denite#custom#var('file_rec', 'command', ['pt', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', ''])
   endif
-  call denite#custom#source('grep', 'sorters', ['sorter_sublime'])
-  if executable('ag')
-    call denite#custom#var('grep', 'command', ['ag'])
-    call denite#custom#var('grep', 'default_opts', ['--nogroup', '--nocolor', '--smart-case', '--hidden'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', [])
-    call denite#custom#var('grep', 'separator', ['--'])
-    " call denite#custom#var('grep', 'final_opts', [])
-  elseif executable('rg')
-    call denite#custom#var('grep', 'command', ['rg'])
-    call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-    call denite#custom#var('grep', 'separator', ['--'])
-    " call denite#custom#var('grep', 'final_opts', [])
-  endif
+  " call denite#custom#source('grep', 'sorters', ['sorter_sublime'])
+  call denite#custom#var('grep', 'command', ['ag'])
+  call denite#custom#var('grep', 'default_opts', ['--nogroup', '--nocolor', '--smart-case', '--hidden'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'pattern_opt', [])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'final_opts', [])
 '''
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 depends = 'denite.nvim'
 on_path = '.*'
-
 

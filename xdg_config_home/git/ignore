@@ -41,4 +41,5 @@ Temporary Items
 .node-version
 
 *.bak
+*.bk
 
