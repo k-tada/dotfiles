@@ -1,6 +1,6 @@
 #!/bin/bash
 brew tap mscharley/homebrew
-brew install alacritty
+brew install --HEAD mscharley/homebrew/alacritty
 brew install ansible
 brew install colordiff
 brew install ctags
