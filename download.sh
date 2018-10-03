@@ -26,7 +26,7 @@ fi
 ###
 # setup
 echo " --- dotfiles.git --- "
-git clone https://github.com/k-tada/dotfiles.git ~/
+git clone https://github.com/k-tada/dotfiles.git
 echo "Run 'cd ~/dotfiles && . setup.sh'"
 echo " --- End --- "
 
