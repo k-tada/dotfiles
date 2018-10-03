@@ -366,3 +366,9 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 '''
 
+[[plugins]]
+repo = 'osyo-manga/vim-brightest'
+hook_add = '''
+let g:brightest#pattern = '\k\+'
+'''
+
