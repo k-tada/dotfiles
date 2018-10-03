@@ -1,4 +1,5 @@
 #!/bin/bash
+brew tap mscharley/homebrew
 brew install alacritty
 brew install ansible
 brew install colordiff
