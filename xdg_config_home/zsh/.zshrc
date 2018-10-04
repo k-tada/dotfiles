@@ -41,6 +41,7 @@ function select-history() {
 zle -N select-history
 bindkey '^r' select-history
 
-# if (which zprof > /dev/null 2>&1); then
-#   zprof
-# fi
+# profiling
+if (which zprof > /dev/null 2>&1); then
+  zprof
+fi
