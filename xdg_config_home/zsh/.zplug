@@ -10,32 +10,48 @@ if [[ -s "$ZPLUG_HOME" ]]; then
 
   source "$ZPLUG_HOME/init.zsh"
 
-  zplug "zplug/zplug"
+  cache_dir=$ZPLUG_HOME/cache
+  flag=false
 
-  # theme -> pure
-  zplug "mafredri/zsh-async", from:github
-  zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+  if [ -d $cache_dir ]; then
+    plugin_date=$(date -r $ZDOTDIR/.zplug +%s)
+    cache_date=$(date -r $cache_dir/interface +%s)
+    if [ ! -d $cache_dir -o $plugin_date -gt $cache_date ]; then
+      flag=true
+    fi
+  else
+    flag=true
+  fi
 
-  zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
+  if $flag; then
+    echo "Loading zplug"
+    zplug "zplug/zplug"
 
-  zplug 'zsh-users/zsh-completions', use:'src/_*', lazy:true
-  zplug "zsh-users/zsh-syntax-highlighting", defer:2
-  zplug "b4b4r07/zsh-vimode-visual", defer:3
-  zplug "ascii-soup/zsh-url-highlighter"
+    # theme -> pure
+    zplug "mafredri/zsh-async", from:github
+    zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
-  zplug "voronkovich/gitignore.plugin.zsh"
+    zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
 
-  zplug "jhawthorn/fzy", as:command, hook-build:'make'
-  zplug "b4b4r07/git-br", as:command, use:'git-br'
+    zplug 'zsh-users/zsh-completions', use:'src/_*', lazy:true
+    zplug "zsh-users/zsh-syntax-highlighting", defer:2
+    zplug "b4b4r07/zsh-vimode-visual", defer:3
+    zplug "ascii-soup/zsh-url-highlighter"
 
-  zplug "mollifier/cd-gitroot"
+    zplug "voronkovich/gitignore.plugin.zsh"
 
-  zplug "mollifier/anyframe"
+    zplug "jhawthorn/fzy", as:command, hook-build:'make'
+    zplug "b4b4r07/git-br", as:command, use:'git-br'
+
+    zplug "mollifier/cd-gitroot"
+
+    zplug "mollifier/anyframe"
 
 
-  # Install plugins if there are plugins that have not been installed
-  # zplug check || zplug install
+    # Install plugins if there are plugins that have not been installed
+    # zplug check || zplug install
 
-  zplug load
+    zplug load
+  fi
 fi
 
