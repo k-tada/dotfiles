@@ -26,12 +26,12 @@ function chpwd() { ls -sla }
 # anyenv
 if [ -d $HOME/.anyenv ] ; then
   export PATH="$HOME/.anyenv/bin:$PATH"
-  eval "$(anyenv init -)"
+  eval "$(anyenv init - --no-rehash)"
 fi
 
 # goenv
 export PATH="$HOME/.goenv/bin:$PATH"
-eval "$(goenv init -)"
+eval "$(goenv init - --no-rehash)"
 
 # fzf
 function select-history() {
