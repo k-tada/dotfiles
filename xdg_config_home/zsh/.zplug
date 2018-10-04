@@ -12,6 +12,10 @@ if [[ -s "$ZPLUG_HOME" ]]; then
 
   zplug "zplug/zplug"
 
+  # theme -> pure
+  zplug "mafredri/zsh-async", from:github
+  zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+
   zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
 
   zplug 'zsh-users/zsh-completions', use:'src/_*', lazy:true
