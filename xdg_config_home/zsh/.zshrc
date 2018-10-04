@@ -1,3 +1,13 @@
+# auto compile
+autoload -Uz compinit
+_ZCOMPDUMP=$ZDOTDIR/$USER-zcompdump
+for dump in $_ZCOMPDUMP(N.mh+24); do
+    compinit -d $_ZCOMPDUMP
+done
+[[ -e "${_ZCOMPDUMP:r}.zwc" ]] && [[ "$_ZCOMPDUMP" -ot "${_ZCOMPDUMP:r}.zwc" ]] ||
+    zcompile $_ZCOMPDUMP >/dev/null 2>&1
+compinit -C -d $_ZCOMPDUMP
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # kubectl
 if [ $commands[kubectl] ]; then
