@@ -21,6 +21,7 @@ brew install stern
 brew install mongodb
 brew install mysql
 brew install redis
+brew install reattach-to-user-namespace
 brew install the_platinum_searcher
 brew install the_silver_searcher
 brew install tmux
