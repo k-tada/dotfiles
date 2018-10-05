@@ -1,0 +1,5 @@
+# 左右に分割
+split-window -h -c "#{pane_current_path}"
+
+# 下のウィンドウのサイズ調整
+resize-pane -R 70
