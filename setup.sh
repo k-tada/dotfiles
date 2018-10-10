@@ -8,7 +8,7 @@ function command_exists {
 #
 read -sp "Your Password: " pass;
 
-./link-dotfiles.sh
+sh ./link-dotfiles.sh
 
 ###
 # Install zsh
@@ -35,15 +35,15 @@ fi
 ###
 # Install *env
 #
-./setup_scripts/anyenv.sh
+sh ./setup_scripts/anyenv.sh
 
 ###
 # Install nvim
 #
-./setup_scripts/nvim.sh
+sh ./setup_scripts/nvim.sh
 
 ###
 # Install brew softwares
-./setup_scripts/brew.sh
+sh ./setup_scripts/brew.sh
 
 

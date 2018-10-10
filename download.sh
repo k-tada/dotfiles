@@ -5,14 +5,15 @@ function command_exists {
 
 ###
 # install homebrew
+echo " --- Homebrew --- "
 if ! command_exists brew ; then
-  echo " --- Homebrew --- "
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  brew update
-  brew upgrade --all --cleanup
-  brew -v
-  echo " --- End --- "
 fi
+
+brew update
+brew upgrade --all --cleanup
+brew -v
+echo " --- End --- "
 
 ###
 # install git
@@ -26,7 +27,13 @@ fi
 ###
 # setup
 echo " --- dotfiles.git --- "
-git clone https://github.com/k-tada/dotfiles.git
+if [ -d ~/dotfiles ]; then
+  cd ~/dotfiles
+  git pull origin master
+else
+  cd
+  git clone https://github.com/k-tada/dotfiles.git
+fi
 echo "Run 'cd ~/dotfiles && . setup.sh'"
 echo " --- End --- "
 

@@ -170,6 +170,9 @@ nnoremap <silent> gC :tabc<CR>
 " jjでesc
 inoremap <silent> jj <ESC>
 
+" <space>^で前のファイルを開く
+nnoremap <Space>^ <C-^>
+
 " 挿入モードから抜けた時に自動でNoPaste
 autocmd InsertLeave * set nopaste
 
