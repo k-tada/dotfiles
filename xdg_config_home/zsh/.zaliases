@@ -13,15 +13,6 @@ alias "...."="cd ../../.."
 # Other
 alias xx="exit"
 
-# Kubernetes
-alias kubectlprod="kubectl --kubeconfig=~/work/proj/minarai/doc/kubernetes-aws/production/config"
-alias kubectlstg="kubectl --kubeconfig=~/work/proj/minarai/doc/kubernetes-aws/staging/config"
-alias kubectlqa="kubectl --kubeconfig=~/work/proj/minarai/doc/kubernetes-aws/qa/config"
-
-alias sternprod="stern --kubeconfig=~/work/proj/minarai/doc/kubernetes-aws/production/config"
-alias sternstg="stern --kubeconfig=~/work/proj/minarai/doc/kubernetes-aws/staging/config"
-alias sternqa="stern --kubeconfig=~/work/proj/minarai/doc/kubernetes-aws/qa/config"
-
 # tmux
 alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 

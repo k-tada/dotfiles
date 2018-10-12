@@ -186,6 +186,7 @@ autocmd BufRead,BufNewFile .zenv     set filetype=zsh
 autocmd BufRead,BufNewFile .zplug    set filetype=zsh
 autocmd BufRead,BufNewFile .zcomp    set filetype=zsh
 autocmd BufRead,BufNewFile .zoptions set filetype=zsh
+autocmd BufRead,BufNewFile .zlocal   set filetype=zsh
 
 autocmd BufRead,BufNewFile *.vue      set filetype=html
 

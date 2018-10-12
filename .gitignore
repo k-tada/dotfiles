@@ -1,4 +1,5 @@
 .vim/bundle/*
 !.vim/bundle/neobundle.vim
 .DS_Store
+xdg_config_home/zsh/.zlocal
 xdg_config_home/zsh/*-zcompdump*

@@ -21,6 +21,10 @@ source $ZDOTDIR/.zprompt
 source $ZDOTDIR/.zaliases
 source $ZDOTDIR/.zplug
 
+if [ -e $ZDOTDIR/.zlocal ]; then
+  source $ZDOTDIR/.zlocal
+fi
+
 function chpwd() { ls -sla }
 
 # anyenv
