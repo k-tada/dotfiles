@@ -45,6 +45,8 @@ function select-history() {
 zle -N select-history
 bindkey '^r' select-history
 
+# [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
+
 # profiling
 if (which zprof > /dev/null 2>&1); then
   zprof

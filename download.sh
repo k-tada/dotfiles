@@ -17,12 +17,12 @@ echo " --- End --- "
 
 ###
 # install git
-# if ! command_exists git ; then
+if [[ ! $(command -v "git") =~ ^\/usr\/local\/bin.* ]] ; then
   echo " --- Git --- "
   brew install git
   git --version
   echo " --- End --- "
-# fi
+fi
 
 ###
 # setup

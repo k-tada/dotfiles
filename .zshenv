@@ -1,7 +1,7 @@
 #profile
 # zmodload zsh/zprof && zprof
 
-if [ -z $TMUX ]; then
+# if [ -z $TMUX ]; then
   # XDG
   if [[ -z "$XDG_CONFIG_HOME" ]]; then
     export XDG_CONFIG_HOME="$HOME/.config"
@@ -28,4 +28,4 @@ if [ -z $TMUX ]; then
 
   # load local .zshenv
   source $ZDOTDIR/.zenv
-fi
+# fi

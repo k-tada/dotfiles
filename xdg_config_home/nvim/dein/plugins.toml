@@ -120,23 +120,20 @@ hook_add = '''
   \ {'filetype':'vim', 'start':'^\s*hook_\(add\|source\|post_source\)\s*=\s*'."''"."'", 'end':"''"."'"},
   \ ]
 
+  let g:context_filetype#filetypes['javascript'] = [
   " styled-components編集用
-  let g:context_filetype#filetypes['javascript'] = [
-  \ {
-  \   'start': 'styled.*`',
-  \   'end':   '`;',
-  \   'filetype': 'css',
-  \ },
-  \ ]
-
+        \ {
+        \   'start': 'styled.*`',
+        \   'end':   '`',
+        \   'filetype': 'css',
+        \ },
   " styled-jsx編集用
-  let g:context_filetype#filetypes['javascript'] = [
-  \ {
-  \   'start': '<style jsx>.*`',
-  \   'end':   '`}.*style',
-  \   'filetype': 'css',
-  \ },
-  \ ]
+        \ {
+        \   'start': '<style jsx>.*`',
+        \   'end':   '`}.*style',
+        \   'filetype': 'css',
+        \ },
+        \ ]
 '''
 
 # Color
@@ -159,6 +156,12 @@ repo = 'KabbAmine/vCoolor.vim'
 repo = 'jonathanfilip/vim-lucius'
 hook_add = '''
   au MyAutoCmd VimEnter * nested colorscheme lucius
+'''
+
+[[plugins]]
+repo = 'andrwb/vim-lapis256'
+hook_add = '''
+  " au MyAutoCmd VimEnter * nested colorscheme lapis256
 '''
 
 [[plugins]]
@@ -351,6 +354,21 @@ repo = 'hotwatermorning/auto-git-diff'
 [[plugins]]
 repo = 'prettier/vim-prettier'
 build = 'npm install'
+
+[[plugins]]
+repo = 'sbdchd/neoformat'
+hook_add = '''
+let g:neoformat_javascript_prettiereslint = {
+  \ 'exe': './node_modules/.bin/prettier-eslint',
+  \ 'args': ['--stdin'],
+  \ 'stdin': 1,
+  \ }
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * Neoformat
+augroup END
+let g:neoformat_enabled_javascript = ['prettiereslint']
+'''
 
 [[plugins]]
 repo = 'terryma/vim-expand-region'

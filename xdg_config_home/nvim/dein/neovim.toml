@@ -38,6 +38,7 @@ hook_source = '''
   let g:deoplete#omni#functions.css = [
         \ 'csscomplete#CompleteCSS',
         \]
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 '''
 
 [[plugins]]
@@ -64,6 +65,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'othree/csscomplete.vim'
+depends = 'deoplete.nvim'
 
 # Denite
 [[plugins]]
