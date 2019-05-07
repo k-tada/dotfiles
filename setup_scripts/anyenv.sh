@@ -9,7 +9,7 @@ if ! command_exists anyenv ; then
   echo " --- anyenv --- "
   git clone https://github.com/riywo/anyenv $HOME/.anyenv
   export PATH=$HOME/.anyenv/bin:$PATH
-  anyenv init -
+  anyenv install --init
   echo " --- End --- "
 fi
 
@@ -35,10 +35,10 @@ fi
 
 ###
 # install ndenv
-if ! command_exists ndenv ; then
+if ! command_exists nodenv ; then
   echo " --- ndenv --- "
-  anyenv install ndenv
-  $anyenv_path/ndenv/bin/ndenv install v10.11.0
+  anyenv install nodenv
+  $anyenv_path/nodenv/bin/nodenv install v10.11.0
   echo " --- End --- "
 fi
 
@@ -50,4 +50,3 @@ if ! command_exists goenv ; then
   goenv install 1.11.0
   echo " --- End --- "
 fi
-
