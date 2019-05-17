@@ -218,7 +218,7 @@ hook_add = '''
   " Syntastic設定
   let g:syntastic_mode_map = {
     \  'mode': 'passive',
-    \  'active_filetypes': ['ruby'],
+    \  'active_filetypes': ['ruby', 'typescript'],
     \}
 
   " エラー行に sign を表示
@@ -363,11 +363,17 @@ let g:neoformat_javascript_prettiereslint = {
   \ 'args': ['--stdin'],
   \ 'stdin': 1,
   \ }
+let g:neoformat_typescript_prettiertslint = {
+  \ 'exe': './node_modules/.bin/prettier-eslint',
+  \ 'args': ['--stdin'],
+  \ 'stdin': 1,
+  \ }
 augroup fmt
   autocmd!
   autocmd BufWritePre * Neoformat
 augroup END
 let g:neoformat_enabled_javascript = ['prettiereslint']
+let g:neoformat_enabled_typescript = ['prettiertslint']
 '''
 
 [[plugins]]
