@@ -188,7 +188,12 @@ autocmd BufRead,BufNewFile .zcomp    set filetype=zsh
 autocmd BufRead,BufNewFile .zoptions set filetype=zsh
 autocmd BufRead,BufNewFile .zlocal   set filetype=zsh
 
-autocmd BufRead,BufNewFile *.vue      set filetype=html
+autocmd BufRead,BufNewFile *.vue     set filetype=html
+
+autocmd BufWritePost *.js            set filetype=javascript
+autocmd BufWritePost *.jsx           set filetype=javascript
+autocmd BufWritePost *.ts            set filetype=typescript
+autocmd BufWritePost *.tsx           set filetype=typescript
 
 " 全角スペースを表示
 function! ZenkakuSpace()

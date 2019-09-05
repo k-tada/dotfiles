@@ -134,6 +134,20 @@ hook_add = '''
         \   'filetype': 'css',
         \ },
         \ ]
+  let g:context_filetype#filetypes['typescript'] = [
+  " styled-components編集用
+        \ {
+        \   'start': 'styled.*`',
+        \   'end':   '`',
+        \   'filetype': 'css',
+        \ },
+  " styled-jsx編集用
+        \ {
+        \   'start': '<style jsx>.*`',
+        \   'end':   '`}.*style',
+        \   'filetype': 'css',
+        \ },
+        \ ]
 '''
 
 # Color
@@ -218,7 +232,7 @@ hook_add = '''
   " Syntastic設定
   let g:syntastic_mode_map = {
     \  'mode': 'passive',
-    \  'active_filetypes': ['ruby', 'typescript'],
+    \  'active_filetypes': ['ruby'],
     \}
 
   " エラー行に sign を表示
@@ -230,8 +244,8 @@ hook_add = '''
 
   let g:syntastic_javascript_checkers=['eslint']
 
-  let g:syntastic_typescript_checkers = ['tslint']
-  let g:syntastic_typescript_tslint_args = "--config ./tslint.json"
+  let g:syntastic_typescript_checkers = ['eslint']
+  " let g:syntastic_typescript_tslint_args = "--config ./tslint.json"
   " let g:syntastic_typescript_tsc_args = "--target ES5"
   " let g:syntastic_typescript_tsc_fname = ''
 
