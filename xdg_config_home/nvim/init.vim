@@ -190,8 +190,13 @@ autocmd BufRead,BufNewFile .zlocal   set filetype=zsh
 
 autocmd BufRead,BufNewFile *.vue     set filetype=html
 
+autocmd BufRead,BufNewFile *.js      set filetype=javascript
+autocmd BufRead,BufNewFile *.jsx     set filetype=javascript
 autocmd BufWritePost *.js            set filetype=javascript
 autocmd BufWritePost *.jsx           set filetype=javascript
+
+autocmd BufRead,BufNewFile *.ts      set filetype=typescript
+autocmd BufRead,BufNewFile *.tsx     set filetype=typescript
 autocmd BufWritePost *.ts            set filetype=typescript
 autocmd BufWritePost *.tsx           set filetype=typescript
 

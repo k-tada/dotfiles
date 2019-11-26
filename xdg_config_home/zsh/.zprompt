@@ -58,5 +58,5 @@ function rprompt-git-current-branch {
 # プロンプトが表示されるたびにプロンプト文字列を評価、置換する
 setopt prompt_subst
 
-RPROMPT='%{$fg[cyan]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%} `rprompt-git-current-branch`'
+RPROMPT='%{$fg[cyan]%}%{$reset_color%} `rprompt-git-current-branch`'
 
