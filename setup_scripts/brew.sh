@@ -1,6 +1,4 @@
 #!/bin/bash
-brew tap mscharley/homebrew
-brew install --HEAD mscharley/homebrew/alacritty
 brew install ansible
 brew install colordiff
 brew install ctags
@@ -28,11 +26,11 @@ brew install tmux
 brew install tmux-xpanes
 brew install watchman
 
-brew tap caskroom/fonts
+brew tap caskroom/cask-fonts
 brew cask install font-fira-code
 
-brew cask install alfred
-brew cask install clipy
-brew cask install day-o
-brew cask install gitkraken
-
+brew install alfred --cask
+brew install clipy --cask
+brew install day-o --cask
+brew install alacritty --cask
+ 
