@@ -27,7 +27,9 @@ brew install tmux-xpanes
 brew install watchman
 
 brew tap caskroom/cask-fonts
-brew cask install font-fira-code
+brew install font-fira-code
+brew install font-hackgen --cask
+brew install font-hackgen-nerd --cask
 
 brew install alfred --cask
 brew install clipy --cask
