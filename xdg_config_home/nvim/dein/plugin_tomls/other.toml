@@ -1,0 +1,28 @@
+# [[plugins]]
+# repo = 'derekwyatt/vim-scala'
+# on_ft = ['scala']
+# 
+# [[plugins]]
+# repo = 'elixir-lang/vim-elixir'
+# on_ft = ['ex', 'exs']
+# 
+# [[plugins]]
+# repo = 'rcmdnk/vim-markdown'
+# on_ft = ['markdown']
+# 
+# [[plugins]]
+# repo = 'ElmCast/elm-vim'
+# on_ft = ['elm']
+# 
+# [[plugins]]
+# repo = 'cespare/vim-toml'
+# on_ft = ['toml']
+# 
+# [[plugins]]
+# repo = 'elixir-editors/vim-elixir'
+# on_ft = ['elixir']
+# 
+
+[[plugins]]
+repo = 'stephpy/vim-yaml'
+on_ft = ['yaml']

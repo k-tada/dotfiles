@@ -1,0 +1,13 @@
+# [[plugins]]
+# repo = 'zchee/deoplete-go'
+# on_ft = ['go']
+# 
+# [[plugins]]
+# repo = 'fatih/vim-go'
+# on_ft = ['go']
+# 
+# [[plugins]]
+# repo = 'nsf/gocode'
+# on_ft = ['go']
+# rtp = 'vim'
+
