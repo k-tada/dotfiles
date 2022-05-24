@@ -12,11 +12,11 @@ brew install fzy
 brew install git-flow
 brew install git-now
 brew install git-lfs
-brew install heroku
-brew install kubernetes-cli
-brew install kubectx
+# brew install heroku
+# brew install kubernetes-cli
+# brew install kubectx
 brew install stern
-brew install mongodb
+# brew install mongodb
 brew install mysql
 brew install redis
 brew install reattach-to-user-namespace
