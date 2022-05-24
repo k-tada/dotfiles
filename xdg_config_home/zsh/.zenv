@@ -19,8 +19,8 @@ export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
 export NPM_CONFIG_PROGRESS=false
 
 # Android
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-export GRADLE_HOME="/Applications/Android Studio.app/Contents/gradle/gradle-3.2"
+# export ANDROID_HOME="$HOME/Library/Android/sdk"
+# export GRADLE_HOME="/Applications/Android Studio.app/Contents/gradle/gradle-3.2"
 
 # Babel
 export BABEL_CACHE_PATH="$XDG_CACHE_HOME/babel/babel.json"
@@ -36,7 +36,7 @@ export PSQL_HISTORY="$XDG_CACHE_HOME/psql/history"
 export  MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql/history"
 
 # Golang
-export GOPATH="$XDG_CACHE_HOME/go"
+# export GOPATH="$XDG_CACHE_HOME/go"
 
 # for NVIM
 export NVIM_PYTHON_LOG_FILE="/tmp/log"
@@ -44,11 +44,12 @@ export NVIM_PYTHON_LOG_LEVEL="DEBUG"
 
 # PATHs
 path=(
+  /opt/homebrew/bin
   /usr/local/{bin,sbin}
-  $ANDROID_HOME/{tools,platform-tools}
+#  $ANDROID_HOME/{tools,platform-tools}
   $XDG_DATA_HOME/bin
-  $XDG_CACHE_HOME/go/bin
-  $HOME/go/bin
+#  $XDG_CACHE_HOME/go/bin
+#  $HOME/go/bin
   $path
 )
 
