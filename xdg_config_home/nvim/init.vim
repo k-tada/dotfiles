@@ -201,7 +201,7 @@ autocmd BufRead,BufNewFile .zcomp    set filetype=zsh
 autocmd BufRead,BufNewFile .zoptions set filetype=zsh
 autocmd BufRead,BufNewFile .zlocal   set filetype=zsh
 
-autocmd BufRead,BufNewFile *.vue     set filetype=html
+autocmd BufRead,BufNewFile *.vue     set filetype=vue
 
 autocmd BufRead,BufNewFile *.js      set filetype=javascript
 autocmd BufRead,BufNewFile *.jsx     set filetype=javascript

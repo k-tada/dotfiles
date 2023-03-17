@@ -1,6 +1,5 @@
 [[plugins]]
-repo = 'w0rp/ale'
-on_ft = ['javascript']
+repo = 'dense-analysis/ale'
 hook_add = '''
   let g:ale_sign_error = 'P>'
   let g:ale_sign_warning = 'P-'
@@ -11,10 +10,10 @@ hook_add = '''
   nmap <silent> <C-w>k <Plug>(ale_previous_wrap)
 
   let g:ale_fixers = {
-  \   'typescript': ['prettier'],
-  \   'typescriptreact': ['prettier'],
-  \   'javascript': ['prettier'],
-  \   'javascriptreact': ['prettier'],
+  \   'typescript': ['prettier', 'eslint'],
+  \   'typescriptreact': ['prettier', 'eslint'],
+  \   'javascript': ['prettier', 'eslint'],
+  \   'javascriptreact': ['prettier', 'eslint'],
   \   'css': ['prettier'],
   \   'eruby': ['prettier'],
   \}
@@ -31,26 +30,26 @@ hook_add = '''
 # repo = 'prettier/vim-prettier'
 # build = 'npm install'
 
-[[plugins]]
-repo = 'sbdchd/neoformat'
-hook_add = '''
-let g:neoformat_javascript_prettiereslint = {
-  \ 'exe': './node_modules/.bin/prettier-eslint',
-  \ 'args': ['--stdin'],
-  \ 'stdin': 1,
-  \ }
-let g:neoformat_typescript_prettiertslint = {
-  \ 'exe': './node_modules/.bin/prettier-eslint',
-  \ 'args': ['--stdin'],
-  \ 'stdin': 1,
-  \ }
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * Neoformat
-augroup END
-let g:neoformat_enabled_javascript = ['prettiereslint']
-let g:neoformat_enabled_typescript = ['prettiertslint']
-'''
+# [[plugins]]
+# repo = 'sbdchd/neoformat'
+# hook_add = '''
+# let g:neoformat_javascript_prettiereslint = {
+#   \ 'exe': './node_modules/.bin/prettier-eslint',
+#   \ 'args': ['--stdin'],
+#   \ 'stdin': 1,
+#   \ }
+# let g:neoformat_typescript_prettiertslint = {
+#   \ 'exe': './node_modules/.bin/prettier-eslint',
+#   \ 'args': ['--stdin'],
+#   \ 'stdin': 1,
+#   \ }
+# augroup fmt
+#   autocmd!
+#   autocmd BufWritePre * Neoformat
+# augroup END
+# let g:neoformat_enabled_javascript = ['prettiereslint']
+# let g:neoformat_enabled_typescript = ['prettiertslint']
+# '''
 
 [[plugins]]
 repo = 'pangloss/vim-javascript'
@@ -93,15 +92,22 @@ repo = 'rschmukler/pangloss-vim-indent'
 on_ft = ['javascript']
 
 # [[plugins]]
-# repo = 'leafgarland/typescript-vim'
-# on_ft = ['typescript']
+repo = 'leafgarland/typescript-vim'
+on_ft = ['typescript']
 # 
 # [[plugins]]
-# repo = 'clausreinke/typescript-tools.vim'
-# on_ft = ['typescript']
-# build = 'npm install'
+repo = 'clausreinke/typescript-tools.vim'
+on_ft = ['typescript']
+build = 'npm install'
 # 
 # [[plugins]]
 # repo = 'burner/vim-svelte'
 # on_ft = ['svelte']
 
+[[plugins]]
+repo = 'posva/vim-vue'
+on_ft = ['vue']
+
+[[plugins]]
+repo = 'jparise/vim-graphql'
+on_ft = ['javascript', 'typescript']

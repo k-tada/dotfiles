@@ -16,3 +16,5 @@ alias xx="exit"
 # tmux
 alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 
+# python2
+alias python2="/Users/tada/.anyenv/envs/pyenv/versions/2.7.18/bin/python2.7"
