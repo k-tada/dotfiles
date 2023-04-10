@@ -25,18 +25,13 @@ hook_source = '''
   " function! s:cr_close_popup() abort
   "   return deoplete#close_popup() . "\<CR>"
   " endfunction
-  let g:deoplete#custom#option("sources", {
-        \ 'javascript.jsx': ['file', 'ultisnips', 'ternjs']
-        \ })
-
-  let g:deoplete#custom#option("omni_patterns", {
-        \ 'javascript': '[^. *\t]\.\w*',
-        \ 'ruby': '[^. *\t]\.\w*\|\h\w*::'
-        \ })
-  let g:deoplete#custom#var("omni", "functions", {
-        \ 'javascript': ['tern#Complete',],
-        \ 'css': ['csscomplete#CompleteCSS'],
-        \ })
+  " let g:deoplete#custom#option("sources", { 'javascript.jsx': ['file', 'ultisnips', 'ternjs'] })
+  call deoplete#custom#option("sources", { 'javascript.jsx': ['file', 'ultisnips', 'ternjs'] })
+  "
+  " let g:deoplete#custom#option("omni_patterns", { 'javascript': '[^. *\t]\.\w*', 'ruby': '[^. *\t]\.\w*\|\h\w*::' })
+  " let g:deoplete#custom#var("omni", "functions", { 'javascript': ['tern#Complete',], 'css': ['csscomplete#CompleteCSS'] })
+  call deoplete#custom#option("omni_patterns", { 'javascript': '[^. *\t]\.\w*', 'ruby': '[^. *\t]\.\w*\|\h\w*::' })
+  call deoplete#custom#var("omni", "functions", { 'javascript': ['tern#Complete',], 'css': ['csscomplete#CompleteCSS'] })
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 '''
 
