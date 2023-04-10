@@ -15,10 +15,9 @@ sh ./link-dotfiles.sh
 #
 if ! command_exists zsh ; then
   echo " ------------ zsh ------------"
-  brew install zsh zsh-autosuggestions zsh-completions zsh-syntax-highlighting
-  which -a zsh
-  echo $pass | sudo -S -- sh -c 'echo '/usr/local/bin/zsh' >> /etc/shells'
-  chsh -s /usr/local/bin/zsh
+# Mac標準zshを使う
+# brew install zsh zsh-autosuggestions zsh-completions zsh-syntax-highlighting
+  brew install zsh-autosuggestions zsh-completions zsh-syntax-highlighting
   echo " ------------ END ------------"
 fi
 

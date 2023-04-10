@@ -7,9 +7,9 @@ function command_exists {
 # install anyenv
 if ! command_exists anyenv ; then
   echo " --- anyenv --- "
-  git clone https://github.com/riywo/anyenv $HOME/.anyenv
-  export PATH=$HOME/.anyenv/bin:$PATH
-  anyenv install --init
+  brew install anyenv
+  eval "$(anyenv install -)"
+  exec $SHELL -l
   echo " --- End --- "
 fi
 
@@ -20,7 +20,9 @@ anyenv_path=$HOME/.anyenv/envs
 if ! command_exists rbenv ; then
   echo " --- rbenv --- "
   anyenv install rbenv
-  $anyenv_path/rbenv/bin/rbenv install 2.4.0
+  exec $SHELL -l
+  rbenv install 3.1.2
+  exec $SHELL -l
   echo " --- End --- "
 fi
 
@@ -29,7 +31,9 @@ fi
 if ! command_exists pyenv ; then
   echo " --- pyenv --- "
   anyenv install pyenv
-  $anyenv_path/pyenv/bin/pyenv install 3.6.2
+  exec $SHELL -l
+  pyenv install 3.10.4
+  exec $SHELL -l
   echo " --- End --- "
 fi
 
@@ -38,15 +42,17 @@ fi
 if ! command_exists nodenv ; then
   echo " --- ndenv --- "
   anyenv install nodenv
-  $anyenv_path/nodenv/bin/nodenv install v10.11.0
+  exec $SHELL -l
+  nodenv install 18.1.0
+  exec $SHELL -l
   echo " --- End --- "
 fi
 
 ###
 # install goenv
-if ! command_exists goenv ; then
-  echo " --- goenv --- "
-  brew install goenv
-  goenv install 1.11.0
-  echo " --- End --- "
-fi
+# if ! command_exists goenv ; then
+#   echo " --- goenv --- "
+#   brew install goenv
+#   goenv install 1.11.0
+#   echo " --- End --- "
+# fi

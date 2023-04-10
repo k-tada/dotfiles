@@ -7,7 +7,7 @@ function command_exists {
 # install homebrew
 echo " --- Homebrew --- "
 if ! command_exists brew ; then
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 brew update
