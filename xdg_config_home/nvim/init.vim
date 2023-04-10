@@ -38,10 +38,21 @@ if dein#load_state(s:dein_cache_dir)
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 
   call dein#load_toml(s:toml_dir . '/plugins.toml', {'lazy': 0})
+
   if has('nvim')
     call dein#load_toml(s:toml_dir . '/neovim.toml', {'lazy': 1})
   endif
+
+  let s:toml_plugin_list = split(glob(s:toml_dir . '/plugin_tomls/*'), '\n')
+
   call dein#load_toml(s:toml_dir . '/lazy.toml', {'lazy': 1})
+  " for s:i in s:toml_plugin_list
+  "   call dein#load_toml(s:toml_plugin_list[s:i])
+  " endfor
+  call dein#load_toml(s:toml_dir . '/plugin_tomls/javascript.toml', {'lazy': 1})
+  call dein#load_toml(s:toml_dir . '/plugin_tomls/ruby.toml', {'lazy': 1})
+  call dein#load_toml(s:toml_dir . '/plugin_tomls/go.toml', {'lazy': 1})
+  call dein#load_toml(s:toml_dir . '/plugin_tomls/other.toml', {'lazy': 1})
 
   call dein#end()
   call dein#save_state()
@@ -128,6 +139,8 @@ end
 set backspace=start,eol,indent
 " 大文字小文字を区別せずに検索する
 set ignorecase
+set splitbelow
+set splitright
 " 構文毎に文字色を変化させる
 syntax on
 " ESC2回でハイライト切り替え
@@ -188,7 +201,7 @@ autocmd BufRead,BufNewFile .zcomp    set filetype=zsh
 autocmd BufRead,BufNewFile .zoptions set filetype=zsh
 autocmd BufRead,BufNewFile .zlocal   set filetype=zsh
 
-autocmd BufRead,BufNewFile *.vue     set filetype=html
+autocmd BufRead,BufNewFile *.vue     set filetype=vue
 
 autocmd BufRead,BufNewFile *.js      set filetype=javascript
 autocmd BufRead,BufNewFile *.jsx     set filetype=javascript
@@ -221,3 +234,25 @@ let mapleader = "\<Space>"
 " call map(dein#check_clean(), "delete(v:val, 'rf')")
 
 source $VIMRUNTIME/plugin/matchit.vim
+
+function! YAMLTree()
+    let l:list = []
+    let l:cur = getcurpos()[1]
+    " Retrieve the current line indentation
+    let l:indent = indent(l:cur) + 1
+    " Loop from the cursor position to the top of the file
+    for l:n in reverse(range(1, l:cur))
+        let l:i = indent(l:n)
+        let l:line = getline(l:n)
+        let l:key = substitute(l:line, '^\s*\(\<\w\+\>\):.*', "\\1", '')
+        " If the indentation decreased and the pattern matched
+        if (l:i < l:indent && l:key !=# l:line)
+            let l:list = add(l:list, l:key)
+            let l:indent = l:i
+        endif
+    endfor
+    let l:list = reverse(l:list)
+    echo join(l:list, '.')
+endfunction
+
+nnoremap <space>f :call YAMLTree()<CR>

@@ -26,6 +26,8 @@
     export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
   fi
 
+  export BASH_SILENCE_DEPRECATION_WARNING=1
+
   # load local .zshenv
   source $ZDOTDIR/.zenv
 # fi

@@ -47,19 +47,6 @@ hi EasyMotionTarget guifg=#80a0ff ctermfg=81
 '''
 
 [[plugins]]
-repo = 'kana/vim-smartword'
-depends = ['kana/vim-submode']
-hook_add = '''
-  nmap w  <Plug>(smartword-w)
-  vmap w  <Plug>(smartword-w)
-  map  b  <Plug>(smartword-b)
-  map  e  <Plug>(smartword-e)
-  omap ge <Plug>(smartword-ge)
-  call submode#enter_with('ge-mode', 'nv', 'r', 'ge', '<Plug>(smartword-ge)')
-  call submode#map('ge-mode', 'nv', 'r', 'e', '<Plug>(smartword-ge)')
-'''
-
-[[plugins]]
 repo = 'kana/vim-submode'
 hook_add = '''
   " undo/redo
@@ -98,14 +85,23 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'kana/vim-smartword'
+depends = ['kana/vim-submode']
+hook_add = '''
+  nmap w  <Plug>(smartword-w)
+  vmap w  <Plug>(smartword-w)
+  map  b  <Plug>(smartword-b)
+  map  e  <Plug>(smartword-e)
+  omap ge <Plug>(smartword-ge)
+  call submode#enter_with('ge-mode', 'nv', 'r', 'ge', '<Plug>(smartword-ge)')
+  call submode#map('ge-mode', 'nv', 'r', 'e', '<Plug>(smartword-ge)')
+'''
+
+[[plugins]]
 repo = 'tmhedberg/matchit'
 
 [[plugins]]
 repo = 'ConradIrwin/vim-bracketed-paste'
-
-[[plugins]]
-repo = 'osyo-manga/vim-precious'
-depends = ['Shougo/context_filetype.vim']
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
@@ -121,13 +117,11 @@ hook_add = '''
   \ ]
 
   let g:context_filetype#filetypes['javascript'] = [
-  " styled-components編集用
         \ {
         \   'start': 'styled.*`',
         \   'end':   '`',
         \   'filetype': 'css',
         \ },
-  " styled-jsx編集用
         \ {
         \   'start': '<style jsx>.*`',
         \   'end':   '`}.*style',
@@ -135,13 +129,11 @@ hook_add = '''
         \ },
         \ ]
   let g:context_filetype#filetypes['typescript'] = [
-  " styled-components編集用
         \ {
         \   'start': 'styled.*`',
         \   'end':   '`',
         \   'filetype': 'css',
         \ },
-  " styled-jsx編集用
         \ {
         \   'start': '<style jsx>.*`',
         \   'end':   '`}.*style',
@@ -149,6 +141,10 @@ hook_add = '''
         \ },
         \ ]
 '''
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['Shougo/context_filetype.vim']
 
 # Color
 [[plugins]]
@@ -227,54 +223,9 @@ repo = 'bronson/vim-trailing-whitespace'
 [[plugins]]
 repo = 'AndrewRadev/switch.vim'
 hook_add = '''
-nmap + :Switch<CR>
-nmap - :Switch<CR>
+  nmap + :Switch<CR>
+  nmap - :Switch<CR>
 '''
-
-[[plugins]]
-repo = 'scrooloose/syntastic'
-hook_add = '''
-  " Syntastic設定
-  let g:syntastic_mode_map = {
-    \  'mode': 'passive',
-    \  'active_filetypes': ['ruby'],
-    \}
-
-  " エラー行に sign を表示
-  let g:syntastic_enable_signs = 1
-  " location list を常に表示
-  let g:syntastic_auto_loc_list = 2
-
-  " let g:syntastic_debug = 3
-
-  let g:syntastic_javascript_checkers=['eslint']
-
-  let g:syntastic_typescript_checkers = ['eslint']
-  " let g:syntastic_typescript_tslint_args = "--config ./tslint.json"
-  " let g:syntastic_typescript_tsc_args = "--target ES5"
-  " let g:syntastic_typescript_tsc_fname = ''
-
-  " ruby
-  let g:syntastic_ruby_checkers = ['rubocop']
-
-  " stylelint
-  let g:syntastic_css_checkers=['stylelint']
-'''
-
-[[plugins]]
-repo = 'mtscout6/syntastic-local-eslint.vim'
-
-[[plugins]]
-repo = 'alessioalex/syntastic-local-tslint.vim'
-
-# Status Line
-# [[plugins]]
-# repo = 'delphinus/lightline-delphinus'
-# hook_add = '''
-# let g:lightline_delphinus_use_powerline_glyphs = 1
-# let g:lightline_delphinus_use_nerd_fonts_glyphs = 1
-# let g:lightline_delphinus_colorscheme = 'nord_improved'
-# '''
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
@@ -283,7 +234,7 @@ hook_add = '''
         \ 'colorscheme': 'landscape',
         \ 'active': {
         \   'left': [ ['mode', 'paste'], ['filename', 'fugitive'] ],
-        \   'right': [ ['syntastic', 'lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype'] ]
+        \   'right': [ ['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype'] ]
         \ },
         \ 'component': {
         \   'readonly': '%{&readonly?"\ue0a2":""}',
@@ -297,12 +248,6 @@ hook_add = '''
         \   'fileencoding': 'MyFileEncoding',
         \   'filetype': 'MyFileType'
         \ },
-        \ 'component_expand': {
-        \   'syntastic': 'SyntasticStatuslineFlag',
-        \ },
-        \ 'component_type': {
-        \   'syntastic': 'error',
-        \ }
         \ }
   function! MyFugitive()
     try
@@ -319,7 +264,8 @@ hook_add = '''
   endfunction
 
   function! MyFileName()
-    return &ft =~ 'nerdtree' ? '-' : expand('%:t') . ' ' . MyModified()
+    return &ft =~ 'nerdtree' ? '-' : expand('%:F') . ' ' . MyModified()
+    " return &ft =~ 'nerdtree' ? '-' : expand('%:t') . ' ' . MyModified()
   endfunction
 
   function! MyFileFormat()
@@ -334,16 +280,16 @@ hook_add = '''
     return &ft =~ 'nerdtree' || winwidth(0) <= 100 ? '' : ( strlen( &filetype ) ? &filetype : 'no ft' )
   endfunction
 
-  augroup AutoSyntastic
-    autocmd!
-    autocmd BufWritePost *.js call s:syntastic()
-    autocmd BufWritePost *.ts call s:syntastic()
-  augroup END
-
-  function! s:syntastic()
-    SyntasticCheck
-    call lightline#update()
-  endfunction
+  " augroup AutoSyntastic
+  "   autocmd!
+  "   autocmd BufWritePost *.js call s:syntastic()
+  "   autocmd BufWritePost *.ts call s:syntastic()
+  " augroup END
+  "
+  " function! s:syntastic()
+  "   SyntasticCheck
+  "   call lightline#update()
+  " endfunction
 '''
 
 # [[plugins]]
@@ -369,31 +315,6 @@ repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
 repo = 'hotwatermorning/auto-git-diff'
-
-[[plugins]]
-repo = 'prettier/vim-prettier'
-build = 'npm install'
-
-[[plugins]]
-repo = 'sbdchd/neoformat'
-hook_add = '''
-let g:neoformat_javascript_prettiereslint = {
-  \ 'exe': './node_modules/.bin/prettier-eslint',
-  \ 'args': ['--stdin'],
-  \ 'stdin': 1,
-  \ }
-let g:neoformat_typescript_prettiertslint = {
-  \ 'exe': './node_modules/.bin/prettier-eslint',
-  \ 'args': ['--stdin'],
-  \ 'stdin': 1,
-  \ }
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * Neoformat
-augroup END
-let g:neoformat_enabled_javascript = ['prettiereslint']
-let g:neoformat_enabled_typescript = ['prettiertslint']
-'''
 
 [[plugins]]
 repo = 'terryma/vim-expand-region'
