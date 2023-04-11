@@ -28,8 +28,8 @@ brew install watchman
 
 brew tap caskroom/cask-fonts
 brew install font-fira-code
-brew install font-hackgen --cask
-brew install font-hackgen-nerd --cask
+brew install font-hackgen
+brew install font-hackgen-nerd
 
 brew install alfred --cask
 brew install clipy --cask
