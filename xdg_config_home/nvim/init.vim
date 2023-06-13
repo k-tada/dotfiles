@@ -54,6 +54,11 @@ if dein#load_state(s:dein_cache_dir)
   call dein#load_toml(s:toml_dir . '/plugin_tomls/go.toml', {'lazy': 1})
   call dein#load_toml(s:toml_dir . '/plugin_tomls/other.toml', {'lazy': 1})
 
+  " treesitterの設定
+  " tomlファイルで書けるか分からなかったのでこちらで
+  " （tomlファイルでも書けることが分かったらそちらに移動予定
+  call dein#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
+
   call dein#end()
   call dein#save_state()
 endif
@@ -256,3 +261,18 @@ function! YAMLTree()
 endfunction
 
 nnoremap <space>f :call YAMLTree()<CR>
+
+" treesitterの設定
+" tomlファイルで書けるか分からなかったのでこちらで
+" （tomlファイルでも書けることが分かったらそちらに移動予定
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    "typescript",
+    "tsx",
+  },
+  highlight = {
+    enable = true,
+  },
+}
+EOF
