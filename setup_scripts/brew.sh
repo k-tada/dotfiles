@@ -25,6 +25,7 @@ brew install the_platinum_searcher
 brew install the_silver_searcher
 brew install tmux
 brew install tmux-xpanes
+brew install tree-sitter # for nvim-treesitter
 brew install watchman
 
 brew tap caskroom/cask-fonts
