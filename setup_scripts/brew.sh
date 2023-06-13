@@ -9,6 +9,7 @@ brew install fontconfig
 brew install fontforge
 brew install fzf
 brew install fzy
+brew install gibo
 brew install git-flow
 brew install git-now
 brew install git-lfs
