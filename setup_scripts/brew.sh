@@ -23,6 +23,7 @@ brew install redis
 brew install reattach-to-user-namespace
 brew install the_platinum_searcher
 brew install the_silver_searcher
+brew install ripgrep
 brew install tmux
 brew install tmux-xpanes
 brew install tree-sitter # for nvim-treesitter
