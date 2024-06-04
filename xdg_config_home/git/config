@@ -1,23 +1,26 @@
 [core]
-  editor = /usr/local/bin/nvim
+  editor = /opt/homebrew/bin/nvim
   pager = diff-so-fancy | less --tabs=4 -RFX
   hooksPath = ~/.config/git/hooks
-	excludesfile = /Users/ktada/.gitignore_global
+  excludesfile = /Users/ktada/.gitignore_global
 [diff]
   indentHeuristic = true
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
 [mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
 [alias]
   push = push -u
   w = worktree
-  nw = "!f(){ git worktree add ./$1 $1;};f"
-  wa = "!f(){ git worktree add ./$1 $1;};f"
-  nwm = "!f(){ git worktree add -b $1 ./$1 master;};f"
-  wam = "!f(){ git worktree add -b $1 ./$1 master;};f"
+  wl = worktree list
+  nw = "!f(){ git worktree add ./.worktrees/$1 $1;};f"
+  wa = "!f(){ git worktree add ./.worktrees/$1 $1;};f"
+  nwm = "!f(){ git worktree add -b $1 ./.worktrees/$1 master;};f"
+  wam = "!f(){ git worktree add -b $1 ./.worktrees/$1 master;};f"
+  nwb = "!f(){ git worktree add -b $1 ./.worktrees/$2 $3;};f"
+  wab = "!f(){ git worktree add -b $1 ./.worktrees/$2 $3;};f"
   wrm = "!f(){ rm -rf $1 && git worktree prune;};f"
   wrmb = "!f(){ rm -rf $1 && git worktree prune && git branch -D $1;};f"
   diff = diff --color | diff-so-fancy
@@ -36,7 +39,7 @@
 [push]
   default = simple
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
