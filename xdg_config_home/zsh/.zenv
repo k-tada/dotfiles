@@ -1,6 +1,6 @@
 ##
 # Homebrew
-eval "$(/usr/local/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Languages
 export LANG="ja_JP.UTF-8"
@@ -48,8 +48,8 @@ export NVIM_PYTHON_LOG_LEVEL="DEBUG"
 
 # PATHs
 path=(
-  /usr/local/bin
-  /usr/local/opt/imagemagick@6/bin
+  /opt/homebrew/bin
+  /opt/homebrew/opt/imagemagick@6/bin
   /usr/local/{bin,sbin}
 #  $ANDROID_HOME/{tools,platform-tools}
   $XDG_DATA_HOME/bin
