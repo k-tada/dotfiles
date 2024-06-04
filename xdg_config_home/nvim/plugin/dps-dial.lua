@@ -1,0 +1,4 @@
+-- vim.keymap.set("n", '<C-a>', '<Plug>(dps-dial-increment)', { silent = true, noremap = true})
+-- vim.keymap.set("n", '<C-x>', '<Plug>(dps-dial-decrement)', { silent = true, noremap = true})
+-- vim.keymap.set("x", '<C-a>', '<Plug>(dps-dial-increment)', { silent = true, noremap = true})
+-- vim.keymap.set("x", '<C-x>', '<Plug>(dps-dial-decrement)', { silent = true, noremap = true})
