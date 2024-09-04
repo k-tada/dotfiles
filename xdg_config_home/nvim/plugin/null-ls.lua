@@ -3,47 +3,33 @@ if not status then
   return
 end
 
-local formatting = null_ls.builtins.formatting
-local diagnostics = null_ls.builtins.diagnostics
-
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-local lsp_formatting = function(bufnr)
-  -- vim.lsp.buf.format({ async = false })
-  -- vim.lsp.buf.formatting_sync()
-  vim.lsp.buf.format({
-    filter = function(client)
-      return client.name == "null-ls"
-    end,
-    bufnr = bufnr,
-  })
-end
+local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+local event = "BufWritePre"
+local async = event == "BufWritePost"
 
 null_ls.setup({
-  sources = {
-    -- formatting.prettierd,
-    -- formatting.eslint_d.with({
-    -- 	diagnostics_format = "[eslint] #{m}\n(#{c})",
-    -- }),
-    formatting.shfmt,
-    diagnostics.eslint.with({
-      prefer_local = "node_modules/.bin",
-    }),
-    formatting.prettier.with({
-      prefer_local = "node_modules/.bin",
-    }),
-    formatting.stylua,
-  },
-  -- debug = false,
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
-      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
+      vim.keymap.set("n", "<Leader>f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+
+      -- format on save
+      vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+      vim.api.nvim_create_autocmd(event, {
         buffer = bufnr,
+        group = group,
         callback = function()
-          lsp_formatting(bufnr)
+          vim.lsp.buf.format({ bufnr = bufnr, async = async })
         end,
+        desc = "[lsp] format on save"
       })
     end
-  end,
+
+    if client.supports_method("textDocument/rangeFormatting") then
+      vim.keymap.set("x", "<Leader>f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+    end
+  end
 })

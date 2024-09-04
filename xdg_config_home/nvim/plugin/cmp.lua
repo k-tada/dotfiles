@@ -51,6 +51,8 @@ cmp.setup({
     { name = "buffer" },
     { name = "path" },
     { name = "luasnip" },
+    { name = "css-variables" },
+    { name = "sass-variables" },
   }),
   formatting = {
     format = lspkind.cmp_format({ with_text = false, maxwidth = 50, ellipsis_char = '...' })

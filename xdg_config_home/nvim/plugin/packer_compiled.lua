@@ -94,10 +94,25 @@ _G.packer_plugins = {
     path = "/Users/k-tada/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
     url = "https://github.com/hrsh7th/cmp-cmdline"
   },
+  ["cmp-css-variables"] = {
+    loaded = true,
+    path = "/Users/k-tada/.local/share/nvim/site/pack/packer/start/cmp-css-variables",
+    url = "https://github.com/roginfarrer/cmp-css-variables"
+  },
+  ["cmp-nvim-lsp"] = {
+    loaded = true,
+    path = "/Users/k-tada/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+    url = "https://github.com/hrsh7th/cmp-nvim-lsp"
+  },
   ["cmp-path"] = {
     loaded = true,
     path = "/Users/k-tada/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
+  },
+  ["cmp-sass-variables"] = {
+    loaded = true,
+    path = "/Users/k-tada/.local/share/nvim/site/pack/packer/start/cmp-sass-variables",
+    url = "https://github.com/pontusk/cmp-sass-variables"
   },
   ["cmp-spell"] = {
     loaded = true,
@@ -154,10 +169,20 @@ _G.packer_plugins = {
     path = "/Users/k-tada/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
+  ["null-ls.nvim"] = {
+    loaded = true,
+    path = "/Users/k-tada/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/Users/k-tada/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-lspconfig"] = {
+    loaded = true,
+    path = "/Users/k-tada/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    url = "https://github.com/neovim/nvim-lspconfig"
   },
   ["nvim-scrollbar"] = {
     loaded = true,

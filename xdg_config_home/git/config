@@ -2,15 +2,15 @@
   editor = /opt/homebrew/bin/nvim
   pager = diff-so-fancy | less --tabs=4 -RFX
   hooksPath = ~/.config/git/hooks
-  excludesfile = /Users/ktada/.gitignore_global
+	excludesfile = /Users/k-tada/.gitignore_global
 [diff]
   indentHeuristic = true
 [difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path = 
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
 [mergetool "sourcetree"]
-  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
 [alias]
   push = push -u
   w = worktree
