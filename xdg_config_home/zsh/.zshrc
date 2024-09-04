@@ -15,6 +15,7 @@ compinit -C -d $_ZCOMPDUMP
 #   source $ZDOTDIR/functions/zsh-kubectl-prompt/kubectl.zsh
 # fi
 
+source ~/.zshenv
 source $ZDOTDIR/.zcomp
 source $ZDOTDIR/.zoptions
 source $ZDOTDIR/.zprompt
