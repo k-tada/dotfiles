@@ -600,6 +600,15 @@ key = "F12"
 mods = "Super"
 
 [[keyboard.bindings]]
+chars = "\u005C"
+key = "¥"
+
+[[keyboard.bindings]]
+chars = "\u00A5"
+key = "¥"
+mods = "Alt"
+
+[[keyboard.bindings]]
 chars = """
 
 """
