@@ -614,6 +614,11 @@ chars = """
 """
 key = "NumpadEnter"
 
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "N"
+mods = "Command"
+
 [mouse]
 hide_when_typing = false
 
