@@ -31,3 +31,5 @@ keymap("n", "gC", ":<C-u>tabc", opts)
 keymap("n", "<Space>^", "<C-^>", opts)
 
 keymap("n", "cp", ':let @* = expand("%:p")<cr>', opts)
+keymap("n", "ct", ':let @* = expand("%:t")<cr>', opts)
+keymap("n", "cr", ':let @* = expand("%:r")<cr>', opts)
